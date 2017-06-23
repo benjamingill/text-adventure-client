@@ -1,0 +1,8 @@
+---
+ # se small field
+- room: 1
+  items:
+  - 3 # wooden wheelbarrow
+ # nw small field
+- room: 2
+  items:

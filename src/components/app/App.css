@@ -1,0 +1,13 @@
+.app {
+  text-align: center;
+}
+
+.app-header {
+  background-color: #222;
+  height: 75px;
+  padding: 20px;
+}
+
+.app-body {
+  margin: 8px;
+}

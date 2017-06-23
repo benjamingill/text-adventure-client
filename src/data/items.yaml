@@ -1,0 +1,54 @@
+---
+1:
+  name: trophy case
+  keywords:
+  - case
+  - trophy case
+  description: The trophy case is carved from a beautiful, rich mahogany.
+  roomDescription: A tall, wooden trophy case stands here.
+  canTake: false
+  cannotTakeDescription: The trophy case is too heavy to pick up.
+  canMove: false
+  cannotMoveDescription: The trophy case is too heavy to move.
+  containerCanClose: true
+  containerIsClosed: true
+  containerCanLock: false
+2:
+  name: jewelry box
+  keywords:
+  - box
+  - jewelry box
+  description: It is a small, delicate, wooden box of exquisite craftsmanship.
+  inventoryDescription: a wooden jewelry box
+  roomDescription: A small wooden jewelry box lies on the floor here.
+  canTake: true
+  canMove: true
+  containerCanClose: true
+  containerIsClosed: true
+  containerCanLock: true
+  containerIsLocked: true
+  containerKeyId: 9a40488c-fc7c-4a21-b56b-a43c5c7b2e87
+3:
+  name: wooden wheelbarrow
+  keywords:
+  - wheelbarrow
+  - wooden wheelbarrow
+  description: There is nothing special about the large, wooden wheelbarrow.
+  roomDescription: A large, wooden wheelbarrow rests here.
+  canTake: false
+  cannotTakeDescription: The wheelbarrow is too large to pick up. It does, however,
+    seem mobile enough to push around.
+  containerCanMove: true
+  containerCanClose: false
+4:
+  name: leather pouch
+  keywords:
+  - pouch
+  - leather pouch
+  description: The pouch is made of brown leather and sewn with black-dyed thread.
+  inventoryDescription: a small, leather pouch
+  roomDescription: A small, leather pouch lies on the floor.
+  containerCanTake: true
+  containerCanClose: true
+  containerIsClosed: true
+  containerCanLock: false

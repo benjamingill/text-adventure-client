@@ -1,0 +1,31 @@
+.console-component {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4px;
+  text-align: justify;
+  border: 1px solid black;
+}
+
+.console-body {
+  background-color: #222;
+  padding: 1px 4px;
+  height: 400px;
+  overflow: auto;
+  clear: both;
+  line-height: 20px;
+}
+
+.console-header {
+  color: #222;
+  display: inline;
+}
+
+.console-header .title {
+  float: left;
+  padding-left: 4px;
+}
+
+.console-header .stats {
+  float: right;
+  padding-right: 4px;
+}
