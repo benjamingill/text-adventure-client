@@ -2,7 +2,7 @@ import React from 'react';
 import ConsoleComponent from '../consoleComponent/ConsoleComponent';
 import * as actions from '../../game/actions';
 import { intro, initialState, parse, prompt } from '../../game/game';
-import { getName, getRoom } from '../../game/room';
+import { currentRoom } from '../../game/room';
 import './App.css';
 
 const stateExists = () => !!localStorage.getItem('game');
@@ -55,7 +55,7 @@ export default class App extends React.Component {
           buffer={this.state.buffer}
           moves={this.state.game.moves}
           score={this.state.game.score}
-          title={getName(getRoom(this.state.game.currentRoom)) || 'Limbo'}
+          title={currentRoom(this.state.game) ? currentRoom(this.state.game).name : 'Limbo'}
           processInput={this.processInput}
         />
       </div>
