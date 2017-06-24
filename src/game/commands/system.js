@@ -18,7 +18,7 @@ export const commandBrief = {
 export const clear = {
   command: 'clear',
   pattern: new RegExp(/^(cls|clear)$/i),
-  action: state => Object.assign({}, state, { buffer: '' }),
+  action: () => {},
 };
 
 export const commandDebug = {

@@ -1,22 +1,22 @@
 import * as actions from '../actions';
 import { directionAbbreviations } from '../game';
-import { getRoom, getRoomDescription } from '../room';
+import { currentRoomDescription } from '../room';
 
-const canMoveInDirection = (room, direction) => direction in room.exits;
+const canMoveInDirection = (area, direction) => direction in area.exits;
 
 const move = (state, dispatch, input, direction) => {
-  const room = getRoom(state.currentRoom);
   const directionAbbr = directionAbbreviations[direction];
-  const canMove = canMoveInDirection(room, directionAbbr);
-  const newState = canMove
-    ? Object.assign({}, state, { currentRoom: room.exits[directionAbbr] })
-    : state;
-  dispatch(actions.game(newState));
-  const response = canMove
-    ? `You move ${direction}.\n\n${getRoomDescription(newState.currentRoom, state.options)}`
-    : `You cannot go ${direction}.\n`;
-  dispatch(actions.output(response));
-  return newState;
+  const area = state.world[state.currentRoom];
+
+  if (canMoveInDirection(area, directionAbbr)) {
+    const exitRoomId = area.exits[directionAbbr];
+    const newState = Object.assign({}, state, { currentRoom: exitRoomId });
+    dispatch(actions.game(newState));
+    dispatch(actions.output(`You move ${direction}.\n\n`));
+    dispatch(actions.output(currentRoomDescription(newState)));
+  } else {
+    dispatch(actions.output(`You cannot go ${direction}.\n`));
+  }
 };
 
 export const north = {
