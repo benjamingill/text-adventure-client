@@ -1,11 +1,11 @@
 import * as actions from '../actions';
-import { getRoomDescription } from '../room';
+import { currentRoomDescription } from '../room';
 
 export const look = {
   command: 'look',
   pattern: new RegExp(/^(l|look)$/i),
   action: (state, dispatch) => {
-    dispatch(actions.output(getRoomDescription(state.currentRoom, state.options)));
+    dispatch(actions.output(currentRoomDescription(state)));
   },
 };
 

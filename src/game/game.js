@@ -1,4 +1,5 @@
 import commands from './commands/';
+import world from '../data/world.yaml';
 
 const isMatch = (command, input) => input.match(command.pattern);
 const findCommand = input => commands.find(a => isMatch(a, input));
@@ -13,6 +14,7 @@ export const initialState = {
     debug: false,
     brief: false,
   },
+  world,
 };
 
 export const directions = {
