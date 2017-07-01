@@ -1,6 +1,7 @@
 import StringBuilder from 'string-builder';
 import { directions } from './game';
 import * as utils from './utils';
+import items from '../data/items.yaml';
 import rooms from '../data/rooms.yaml';
 
 const getExitDescription = (exit, roomId, options) => {
@@ -14,6 +15,16 @@ const getExitsDescription = (exits, options) => {
     ? `[${keys.map(e => getExitDescription(e, exits[e], options)).join(', ')}]`
     : '[none]';
 };
+
+const getItemDescription = (itemid, options) =>
+  (utils.isDebug(options)
+    ? `${itemid}: ${items[itemid].roomDescription}`
+    : items[itemid].roomDescription);
+
+const getItemsDescription = (itemids, options) =>
+  (itemids.length > 0
+    ? '\n'.concat(itemids.map(id => getItemDescription(id, options)).join('\n'))
+    : '');
 
 export const currentRoomId = state =>
   (state.world[state.currentRoom]
@@ -42,6 +53,10 @@ export function currentRoomDescription(state) {
 
   sb.append(getExitsDescription(area.exits || {}, state.options));
   sb.append('\n');
+
+  sb.append(getItemsDescription(area.items || [], state.options));
+  sb.append('\n');
+
   return sb.toString();
 }
 
