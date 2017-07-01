@@ -1,6 +1,6 @@
 // import short from 'short-uuid';
 import * as actions from '../actions';
-import { getRoom } from '../room';
+import { currentRoom } from '../room';
 
 export const commandBrief = {
   command: 'brief',
@@ -18,7 +18,7 @@ export const commandBrief = {
 export const clear = {
   command: 'clear',
   pattern: new RegExp(/^(cls|clear)$/i),
-  action: () => {},
+  action: () => { },
 };
 
 export const commandDebug = {
@@ -38,7 +38,7 @@ export const debugShowRoom = {
   command: 'debugShowRoom',
   pattern: new RegExp(/^(debug show room)$/i),
   action: (state, dispatch) => {
-    const room = getRoom(state.currentRoom);
+    const room = currentRoom(state.currentRoom);
     const description = JSON.stringify(room, null, '\u00A0\u00A0');
     dispatch(actions.output(`${description}.\n`));
   },
