@@ -1,4 +1,2 @@
-/.vscode
-/build
-/node_modules
-npm-debug.log*
+dist/js/
+node_modules/
