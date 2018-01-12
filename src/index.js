@@ -1,13 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-/* eslint-disable import/extensions */
-import App from './components/app/App.jsx';
-/* eslint-enable import/extensions */
-import registerServiceWorker from './registerServiceWorker';
+import _ from 'lodash';
+import Terminal from './terminal';
 import './index.css';
 
-/* eslint-disable react/jsx-filename-extension */
-ReactDOM.render(<App />, document.getElementById('root'));
-/* eslint-enable react/jsx-filename-extension */
+const consoleBody = document.getElementById('console-body');
 
-registerServiceWorker();
+const createElement = (line) => {
+  const element = document.createElement('div');
+  element.className = 'console-line';
+  element.innerText = line;
+  return element;
+};
+
+const render = (buffer) => {
+  const lines = _.split(buffer, '\n');
+  const elements = _.map(lines, createElement);
+  while (consoleBody.firstChild) {
+    consoleBody.removeChild(consoleBody.firstChild);
+  }
+  _.forEach(elements, element => consoleBody.appendChild(element));
+};
+
+const terminal = new Terminal(render);
+
+function onKeyDown(event) {
+  if (terminal.handleKeyPress(event.which, event.key)) {
+    event.preventDefault();
+  }
+}
+
+document.addEventListener('keydown', onKeyDown, false);
