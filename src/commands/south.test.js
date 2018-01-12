@@ -5,10 +5,10 @@ import { rooms } from '../world';
 jest.mock('../world', () => ({
   rooms: {
     1: {
-      exits: { n: 2 },
+      exits: { s: 2 },
     },
     2: {
-      exits: { n: 3 },
+      exits: { s: 3 },
     },
     3: {
     },
@@ -21,41 +21,41 @@ beforeEach(() => {
 });
 
 
-test('currentRoom is correctly updated when player enters \'n\'', () => {
+test('currentRoom is correctly updated when player enters \'s\'', () => {
   const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
   const container = { player, rooms, terminal: { appendLine: jest.fn() } };
-  parse(container, 'n');
+  parse(container, 's');
 
   expect(player.getCurrentRoom()).toEqual(2);
-  expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move to the north.');
+  expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move to the south.');
 });
 
-test('currentRoom is correctly updated when player enters \'north\'', () => {
+test('currentRoom is correctly updated when player enters \'south\'', () => {
   const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
   const container = { player, rooms, terminal: { appendLine: jest.fn() } };
-  parse(container, 'north');
+  parse(container, 'south');
 
   expect(player.getCurrentRoom()).toEqual(2);
-  expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move to the north.');
+  expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move to the south.');
 });
 
-test('error is displayed when trying to move north when direction is invalid', () => {
+test('error is displayed when trying to move south when direction is invalid', () => {
   const player = new Player({ currentRoom: 3, score: 0, moves: 0 });
   const container = { player, rooms, terminal: { appendLine: jest.fn() } };
-  parse(container, 'north');
+  parse(container, 'south');
 
   expect(player.getCurrentRoom()).toEqual(3);
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You cannot move that direction.');
 });
 
-test('currentRoom is correctly updated when player moves north twice', () => {
+test('currentRoom is correctly updated when player moves south twice', () => {
   const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
   const container = { player, rooms, terminal: { appendLine: jest.fn() } };
 
   expect(player.getCurrentRoom()).toEqual(1);
-  parse(container, 'n');
+  parse(container, 's');
   expect(player.getCurrentRoom()).toEqual(2);
-  parse(container, 'n');
+  parse(container, 's');
   expect(player.getCurrentRoom()).toEqual(3);
 });
 
