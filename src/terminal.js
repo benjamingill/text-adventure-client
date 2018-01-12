@@ -1,7 +1,9 @@
+import size from 'lodash/size';
 import StringBuilder from 'string-builder';
 
 export default function Terminal(modified) {
   this.buffer = new StringBuilder();
+  this.prompt = '> ';
   this.input = '';
   this.history = [];
   this.historyIndex = 0;
@@ -9,15 +11,12 @@ export default function Terminal(modified) {
 
   this.handleChange = () => {
     if (modified) {
-      const sb = new StringBuilder();
-      sb.append(this.buffer);
-      sb.append(this.input);
       modified(this.toString());
     }
   };
 
-  this.setCursorVisible = (value) => {
-    this.cursorVisible = value;
+  this.toggleCursor = () => {
+    this.cursorVisible = !this.cursorVisible;
     this.handleChange();
   };
 
@@ -37,18 +36,24 @@ export default function Terminal(modified) {
       case 8:
         // backspace
         this.input = this.input.slice(0, -1);
+        this.cursorVisible = true;
         this.handleChange();
         return true;
       case 13:
         // enter
+        if (size(this.input)) {
+          this.buffer.append(this.prompt);
+        }
         this.buffer.append(this.input);
         this.buffer.append('\n');
         this.input = '';
+        this.cursorVisible = true;
         this.handleChange();
         return true;
       case 27:
         // escape
         this.input = '';
+        this.cursorVisible = true;
         this.handleChange();
         return true;
       case 38:
@@ -56,6 +61,7 @@ export default function Terminal(modified) {
         if (this.historyIndex > 0) {
           const historyIndex = this.historyIndex - 1;
           this.input = this.history[historyIndex];
+          this.cursorVisible = true;
           this.handleChange();
           return true;
         }
@@ -74,7 +80,8 @@ export default function Terminal(modified) {
 
   this.toString = () => {
     const sb = new StringBuilder();
-    sb.append(this.buffer.toString());
+    sb.append(this.buffer);
+    sb.append(this.prompt);
     sb.append(this.input);
     sb.append(this.cursorVisible ? '\u2588' : '\u00A0');
     return sb.toString();

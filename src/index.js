@@ -2,22 +2,24 @@ import _ from 'lodash';
 import Terminal from './terminal';
 import './index.css';
 
-const consoleBody = document.getElementById('console-body');
+const ROWS = 20;
 
-const createElement = (line) => {
+const pane = document.getElementById('console-body');
+for (let i = 0; i < ROWS; i += 1) {
   const element = document.createElement('div');
-  element.className = 'console-line';
-  element.innerText = line;
-  return element;
-};
+  element.className = `console-line line-${i}`;
+  pane.appendChild(element);
+}
 
 const render = (buffer) => {
   const lines = _.split(buffer, '\n');
-  const elements = _.map(lines, createElement);
-  while (consoleBody.firstChild) {
-    consoleBody.removeChild(consoleBody.firstChild);
+  const bottom = Math.min(ROWS - 1, lines.length - 1);
+  let linesDrawn = 0;
+  for (let i = bottom; i >= 0; i -= 1) {
+    const line = lines[lines.length - 1 - linesDrawn];
+    linesDrawn += 1;
+    pane.children[i].innerHTML = line || '\u00A0';
   }
-  _.forEach(elements, element => consoleBody.appendChild(element));
 };
 
 const terminal = new Terminal(render);
@@ -27,5 +29,7 @@ function onKeyDown(event) {
     event.preventDefault();
   }
 }
+
+setInterval(() => terminal.toggleCursor(), 550);
 
 document.addEventListener('keydown', onKeyDown, false);
