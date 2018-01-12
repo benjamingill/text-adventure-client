@@ -1,5 +1,5 @@
 const initial = {
-  currentRoom: 1,
+  room: 1,
   score: 0,
   moves: 0,
 };
@@ -15,11 +15,19 @@ export default class Player {
   }
 
   getCurrentRoom() {
-    return this.player.currentRoom;
+    return this.player.room;
+  }
+
+  getCurrentScore() {
+    return this.player.score;
+  }
+
+  getCurrentMoves() {
+    return this.player.moves;
   }
 
   setCurrentRoom(id) {
-    this.player.currentRoom = id;
+    this.player.room = id;
     setPlayer(this.player);
   }
 }

@@ -8,5 +8,4 @@ export const rooms = {
     id: 1,
     name: 'Small Field',
   },
-
 };
