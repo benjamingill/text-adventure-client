@@ -2,6 +2,7 @@ const initial = {
   room: 1,
   score: 0,
   moves: 0,
+  brief: false,
 };
 
 const setPlayer = values => localStorage.setItem('player', JSON.stringify(values));
@@ -24,6 +25,10 @@ export default class Player {
 
   getCurrentMoves() {
     return this.player.moves;
+  }
+
+  getIsBriefMode() {
+    return this.player.brief;
   }
 
   setCurrentRoom(id) {
