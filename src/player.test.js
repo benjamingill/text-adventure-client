@@ -1,6 +1,37 @@
 import Player from './player';
 
-test('player should start out at initial current room', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
+beforeEach(() => {
+  localStorage.clear();
+});
+
+test('player should start out with correct initial room', () => {
+  const player = new Player({ room: 20, score: 0, moves: 0 });
+  expect(player.getCurrentRoom()).toEqual(20);
+});
+
+test('player should start out with correct initial score', () => {
+  const player = new Player({ room: 0, score: 20, moves: 0 });
+  expect(player.getCurrentScore()).toEqual(20);
+});
+
+test('player should start out with correct initial moves', () => {
+  const player = new Player({ room: 0, score: 0, moves: 20 });
+  expect(player.getCurrentMoves()).toEqual(20);
+});
+
+test('player starts out with correct default values', () => {
+  const player = new Player();
   expect(player.getCurrentRoom()).toEqual(1);
+  expect(player.getCurrentScore()).toEqual(0);
+  expect(player.getCurrentMoves()).toEqual(0);
+});
+
+test('player starts out with stored values if values exist', () => {
+  const firstInstance = new Player();
+  expect(firstInstance.getCurrentRoom()).toEqual(1);
+
+  firstInstance.setCurrentRoom(2);
+
+  const secondinstance = new Player();
+  expect(secondinstance.getCurrentRoom()).toEqual(2);
 });

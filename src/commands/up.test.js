@@ -21,8 +21,8 @@ beforeEach(() => {
 });
 
 
-test('currentRoom is correctly updated when player enters \'u\'', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
+test('current room is correctly updated when player enters \'u\'', () => {
+  const player = new Player({ room: 1, score: 0, moves: 0 });
   const container = { player, rooms, terminal: { appendLine: jest.fn() } };
   parse(container, 'u');
 
@@ -30,8 +30,8 @@ test('currentRoom is correctly updated when player enters \'u\'', () => {
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move up.');
 });
 
-test('currentRoom is correctly updated when player enters \'up\'', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
+test('current room is correctly updated when player enters \'up\'', () => {
+  const player = new Player({ room: 1, score: 0, moves: 0 });
   const container = { player, rooms, terminal: { appendLine: jest.fn() } };
   parse(container, 'up');
 
@@ -40,7 +40,7 @@ test('currentRoom is correctly updated when player enters \'up\'', () => {
 });
 
 test('error is displayed when trying to move up when direction is invalid', () => {
-  const player = new Player({ currentRoom: 3, score: 0, moves: 0 });
+  const player = new Player({ room: 3, score: 0, moves: 0 });
   const container = { player, rooms, terminal: { appendLine: jest.fn() } };
   parse(container, 'up');
 
@@ -48,8 +48,8 @@ test('error is displayed when trying to move up when direction is invalid', () =
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You cannot move up.');
 });
 
-test('currentRoom is correctly updated when player moves up twice', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
+test('current room is correctly updated when player moves up twice', () => {
+  const player = new Player({ room: 1, score: 0, moves: 0 });
   const container = { player, rooms, terminal: { appendLine: jest.fn() } };
 
   expect(player.getCurrentRoom()).toEqual(1);
