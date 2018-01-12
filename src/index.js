@@ -1,4 +1,7 @@
 import _ from 'lodash';
+import look from './commands/look';
+import Player from './player';
+import rooms from './world';
 import Terminal from './terminal';
 import './index.css';
 
@@ -23,6 +26,14 @@ const render = (buffer) => {
 };
 
 const terminal = new Terminal(render);
+terminal.appendLine('\n\u00A0\u00A0Welcome to SWEET TEXT ADVENTURE!\n\u00A0\u00A0(c) 1982 Some Ficticious Company\n');
+
+look.action({
+  player: new Player(),
+  rooms,
+  terminal,
+});
+
 
 function onKeyDown(event) {
   if (terminal.handleKeyPress(event.which, event.key)) {
