@@ -22,7 +22,7 @@
     "build": "webpack",
     "start": "webpack-dev-server",
     "lint": "eslint webpack.config.js ./src",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -32,6 +32,9 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
-    }
+    },
+    "setupFiles": [
+      "./src/__mocks__/browserMocks.js"
+    ]
   }
 }
