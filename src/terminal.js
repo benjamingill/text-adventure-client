@@ -1,4 +1,3 @@
-import size from 'lodash/size';
 import StringBuilder from 'string-builder';
 
 export default function Terminal(render, processInput) {
@@ -50,9 +49,7 @@ export default function Terminal(render, processInput) {
         return true;
       case 13:
         // enter
-        if (size(this.input)) {
-          this.buffer.append(this.prompt);
-        }
+        this.buffer.append(this.prompt);
         temp = this.input;
         this.buffer.append(this.input);
         this.buffer.append('\n');
