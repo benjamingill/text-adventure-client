@@ -28,6 +28,9 @@ const render = (buffer) => {
 
 const player = new Player();
 const processInput = (terminal, input) => {
+  if (!input) {
+    return;
+  }
   const container = {
     player,
     rooms,
