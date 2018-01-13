@@ -8,6 +8,7 @@ jest.mock('../world', () => ({
       exits: { u: 2 },
     },
     2: {
+      name: 'Dirty Test Room',
       exits: { u: 3 },
     },
     3: {
@@ -28,6 +29,8 @@ test('current room is correctly updated when player enters \'u\'', () => {
 
   expect(player.getCurrentRoom()).toEqual(2);
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move up.');
+  expect(container.terminal.appendLine.mock.calls[1][0]).toEqual('');
+  expect(container.terminal.appendLine.mock.calls[2][0]).toEqual('Dirty Test Room');
 });
 
 test('current room is correctly updated when player enters \'up\'', () => {
@@ -37,6 +40,8 @@ test('current room is correctly updated when player enters \'up\'', () => {
 
   expect(player.getCurrentRoom()).toEqual(2);
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move up.');
+  expect(container.terminal.appendLine.mock.calls[1][0]).toEqual('');
+  expect(container.terminal.appendLine.mock.calls[2][0]).toEqual('Dirty Test Room');
 });
 
 test('error is displayed when trying to move up when direction is invalid', () => {
@@ -46,6 +51,7 @@ test('error is displayed when trying to move up when direction is invalid', () =
 
   expect(player.getCurrentRoom()).toEqual(3);
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You cannot move up.');
+  expect(container.terminal.appendLine.mock.calls[1][0]).toEqual('');
 });
 
 test('current room is correctly updated when player moves up twice', () => {
@@ -58,4 +64,3 @@ test('current room is correctly updated when player moves up twice', () => {
   parse(container, 'u');
   expect(player.getCurrentRoom()).toEqual(3);
 });
-
