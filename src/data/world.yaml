@@ -1,11 +1,16 @@
--
-  room: "4"
-  comment: south west field w/ wheelbarrow and shovel
+- room: '0'
+- room: '1'
+- room: '2'
+- room: '3'
+- room: '4'
   items:
-    -
-      id: "2"
+    - id: '2'
       items:
-        -
-          id: "3"
-    -
-      id: "x"
+        - id: '3'
+- room: '5'
+- room: '6'
+- room: '7'
+- room: '8'
+- room: '9'
+- room: '10'
+- room: '11'

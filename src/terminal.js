@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import StringBuilder from 'string-builder';
 
 export default function Terminal(render, processInput) {
@@ -27,13 +28,11 @@ export default function Terminal(render, processInput) {
     this.handleChange();
   };
 
-  this.append = (text) => {
-    this.buffer.append(text);
-    this.handleChange();
-  };
-
-  this.appendLine = (text) => {
-    this.buffer.append(text);
+  this.appendLine = (text = '') => {
+    if (typeof text === 'undefined') {
+      this.buffer.append('undefined');
+    }
+    this.buffer.append(_.replace(text, / /, '\u00A0'));
     this.buffer.append('\n');
     this.handleChange();
   };

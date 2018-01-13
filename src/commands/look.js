@@ -2,6 +2,31 @@ import _ from 'lodash';
 import { fromAbbreviations } from '../directions';
 
 const action = ({ player, rooms, terminal }) => {
+  const displayItemInInventory = (item) => {
+    terminal.appendLine(` ${item.inventoryDescription}`);
+  };
+
+  const displayItemInRoom = (item) => {
+    if (item.isContainer && item.canClose && item.isClosed) {
+      terminal.appendLine(`${item.shortDescription} (closed)`);
+    } else if (item.isContainer && item.canClose && !item.isClosed) {
+      terminal.appendLine(`${item.shortDescription} (opened)`);
+    } else {
+      terminal.appendLine(item.shortDescription);
+    }
+
+    if (item.isContainer && !item.isClosed && _.size(item.container) === 0) {
+      terminal.appendLine(`The ${item.name} contains:`);
+      terminal.appendLine(' nothing');
+    }
+
+    if (item.isContainer && !item.isClosed && _.size(item.container) > 0) {
+      terminal.appendLine(`The ${item.name} contains:`);
+      _.forEach(item.container, displayItemInInventory);
+      terminal.appendLine('');
+    }
+  };
+
   const room = rooms[player.getCurrentRoom()];
   terminal.appendLine(room.name);
 
@@ -20,6 +45,11 @@ const action = ({ player, rooms, terminal }) => {
   }
 
   terminal.appendLine('');
+
+  if (_.size(room.container)) {
+    _.forEach(room.container, displayItemInRoom);
+    terminal.appendLine('');
+  }
 };
 
 export default {
