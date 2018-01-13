@@ -1,6 +1,21 @@
 language: node_js
 node_js:
-  - "node"
-before_script:
-  - "npm run lint"
-  - "npm run test"
+  - '6.10'
+script:
+  - npm run lint
+  - npm test
+deploy:
+  provider: s3
+  access_key_id: YOUR AWS ACCESS KEY
+  secret_access_key: YOUR AWS SECRET KEY
+  region: us-east-1
+  bucket: text-adventure.bmonkey.net
+  local_dir: dist
+  on:
+    branch: master
+env:
+  global:
+    - secure: >-
+        rBa96NQbzEvXUMz85ao9HR7BXbeQSOsYsq/49hZDwKu2uvmWw3K73IZyvuICYubYEoRENdhUDn6qugMN5Qbp61Wv0EQflietPuCC2s78ykh0NvrEHkirKOtirE4F6EU+e3DiT2TCdukTcxtLq7tO/r5A0ceb6zt9f6mFewpK9HgLeLRBsilzfzRYxwGMGVX4kSPV7PpI1odSfu0C9Ph3sUG91lw+/R9EV6kRouKbwsMVuZ66A7rBr69Arfz8MuCFxmUVo5H06vfDqi/DLmsMs+uLZ55nMG7lR1WjCcbzFQBbi3Wc9hcv8bbvf+0TCtSw7XMihWq4H+ZujVttRCCAOvkoHwdJWSnc2ncmH98VlbbblMWqBXqxNEySY1vwkc7gzVATzEXfzUOoRUVdmJnLu05gQZOch7X4Rt2T5m4UFiJvceHjvdbC7He4/UxxUO9Wib62B48MKZPB5K/k7k2YJsqQdWiD6+vSKsU6cDpqNczQ/+iHU2Rnr6w6V0cZFQHirWhVjMGoz5aDWswnfjNqUR9gBtyN/GchsthaylAa6jDbG8ewZ3NfC09SV8/t9iWt9mu76ZjWDaRI75rARS8beCzxHVue7/hfQLPVgwdf9Dl4zxuc8Cgp1QP61+VqYfpt2UJyCu+cBpI+iUR7CYHGoTDfNAEqp7+h5leu13MtYiE=
+    - secure: >-
+        azbJWw+idGl36qZnwnGTsMFxM/MLxf05voNYzhbkFhc2+1TOJJpMJMrUTnssBok7aNA8JXA8VLsT1Ri+y13KhhxOVCv6krO7Z6pSlgnOaUXITEF6QSnGbc2571BNK+fJsI56Hzm4ctKWs34vpbafJdBpfk1slaIgDiZKlIkC81geON6g5sK5a5AKLkHnEg4Bemalnc2XzXW/MYGvPQHqeN27y1D95n88F+ZxWXKAxQtxOPk2NyNo4oCdl0LOz5aYUE3Ku50xU7GKxSULuboFV8tuttB+iRaClgLlQ7bkz4nIV0LcZBfsdmMb22pXmsAB6fFOOStSFrd76W+g/xvasmn10+CgBhM8eEC1DtwjLD8Q7y1/wKqhsA0G4kFbdW+NtWhFEX0AIwZSYOqZcD1NFz+MOuM5WeA9ckJueLgtIadz2Y2Zl6fBY4chmeJ8MHfBHCxGtvgGBaQc1LoxxX4FvVNU6AxpMsm0RYWYdaEmt7fRMjaSmws+K01R/sKv2/g2JlYtsQ5N6Xdj5gMQyDMyCqoNKkrq7edqC2KupJ+L5b/Y08w0ANvGz/45Z75jLW7jvM6D12avxGajsEz1UojHw2pUTnVB0X2Kc+VLIWYo9DyXbzvoPMmi8MQIpYNgffWXATp/glPgenf1Rnh+8U8nWCHH1udlJwEt6mTKPoGJjgI=
