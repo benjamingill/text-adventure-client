@@ -3,6 +3,7 @@ import look from './commands/look';
 import Player from './player';
 import rooms from './world';
 import Terminal from './terminal';
+import parser from './parser';
 import './index.css';
 
 const ROWS = 20;
@@ -25,7 +26,17 @@ const render = (buffer) => {
   }
 };
 
-const terminal = new Terminal(render);
+const player = new Player();
+const processInput = (terminal, input) => {
+  const container = {
+    player,
+    rooms,
+    terminal,
+  };
+  parser(container, input);
+};
+
+const terminal = new Terminal(render, processInput);
 terminal.appendLine('\n\u00A0\u00A0Welcome to SWEET TEXT ADVENTURE!\n\u00A0\u00A0(c) 1982 Some Ficticious Company\n');
 
 look.action({

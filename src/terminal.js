@@ -1,7 +1,7 @@
 import size from 'lodash/size';
 import StringBuilder from 'string-builder';
 
-export default function Terminal(modified) {
+export default function Terminal(render, processInput) {
   this.buffer = new StringBuilder();
   this.prompt = '> ';
   this.input = '';
@@ -9,9 +9,17 @@ export default function Terminal(modified) {
   this.historyIndex = 0;
   this.cursorVisible = true;
 
+  const handleInput = (input) => {
+    try {
+      processInput(this, input);
+    } catch (e) {
+      this.appendLine(e.message);
+    }
+  };
+
   this.handleChange = () => {
-    if (modified) {
-      modified(this.toString());
+    if (render) {
+      render(this.toString());
     }
   };
 
@@ -32,6 +40,7 @@ export default function Terminal(modified) {
   };
 
   this.handleKeyPress = (code, key) => {
+    let temp;
     switch (code) {
       case 8:
         // backspace
@@ -44,11 +53,14 @@ export default function Terminal(modified) {
         if (size(this.input)) {
           this.buffer.append(this.prompt);
         }
+        temp = this.input;
         this.buffer.append(this.input);
         this.buffer.append('\n');
         this.input = '';
         this.cursorVisible = true;
         this.handleChange();
+        handleInput(temp);
+        temp = '';
         return true;
       case 27:
         // escape
