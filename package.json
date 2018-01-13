@@ -1,7 +1,7 @@
 {
   "name": "simple-website",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "./src/index.js",
   "author": "benjamin-gill",
   "license": "ISC",
   "devDependencies": {
@@ -14,9 +14,11 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "jest": "^22.0.6",
+    "json-loader": "^0.5.7",
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.10.1"
+    "webpack-dev-server": "^2.10.1",
+    "yaml-loader": "^0.5.0"
   },
   "scripts": {
     "build": "webpack",
@@ -32,6 +34,10 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
+    },
+    "transform": {
+      "^.+\\.(js|jsx)?$": "babel-jest",
+      "\\.(yaml)$": "<rootDir>/src/__transformers__/yaml.js"
     },
     "setupFiles": [
       "./src/__mocks__/browserMocks.js"
