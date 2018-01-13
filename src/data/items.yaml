@@ -1,4 +1,4 @@
-"1":
+'1':
   name: trophy case
   keywords:
     - case
@@ -6,15 +6,15 @@
     - mahogany
     - tall
     - wooden
-  description: The tall trophy case is carved from a beautiful, dark mahogany.
-  short_description: A tall, wooden trophy case stands against the wall.
-  can_take: false
-  take_description: The trophy case is too heavy to carry around.
-  can_move: false
-  move_description: The trophy case is too heavy to move around.
-  is_container: true
-  can_close: true
-"2":
+  description: 'The tall trophy case is carved from a beautiful, dark mahogany.'
+  shortDescription: 'A tall, wooden trophy case stands against the wall.'
+  canTake: false
+  takeDescription: The trophy case is too heavy to carry around.
+  canMove: false
+  moveDescription: The trophy case is too heavy to move around.
+  isContainer: true
+  canClose: true
+'2':
   name: wooden wheelbarrow
   keywords:
     - large wooden wheelbarrow
@@ -22,26 +22,26 @@
     - wooden
     - wheelbarrow
   description: The large wheelbarrow is made out of wood.
-  short_description: A large, wooden wheelbarrow is here.
-  can_take: false
-  take_description: |
+  shortDescription: 'A large, wooden wheelbarrow is here.'
+  canTake: false
+  takeDescription: |
     The wheelbarrow is too large to pick up. It does however seem mobile
     enough to push around.
-  can_move: true
-  move_description: You move the wheelbarrow.
-  is_container: true
-  can_close: false
-"3":
+  canMove: true
+  moveDescription: You move the wheelbarrow.
+  isContainer: true
+  canClose: false
+'3':
   name: shovel
   keywords:
     - shovel
   description: |
     The shovel has a long wooden handle and a rusty iron blade.
-  short_description: A shovel lies here.
-  inventory_description: a shovel
-  can_take: true
-  is_container: false
-"4":
+  shortDescription: A shovel lies here.
+  inventoryDescription: a shovel
+  canTake: true
+  isContainer: false
+'4':
   name: jewelry box
   keywords:
     - jewelry box
@@ -58,8 +58,8 @@
   is_open: false
   can_lock: false
   is_locked: true
-  key_id: "10"
-"x":
+  key_id: '10'
+x:
   name: wooden thingy
   keywords:
     - large wooden thingy
@@ -67,7 +67,7 @@
     - wooden
     - thingy
   description: The large thingy is made out of wood.
-  short_description: A large, wooden thingy is here.
+  short_description: 'A large, wooden thingy is here.'
   inventory_description: a thingy
   can_take: true
   can_move: true

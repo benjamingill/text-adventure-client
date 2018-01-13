@@ -32,7 +32,7 @@
     e: '5'
 '4':
   name: Field
-  description: |
+  description: >-
     You are standing in the south-western corner of a large field. The field
     continues to the north and to the east.
   exits:

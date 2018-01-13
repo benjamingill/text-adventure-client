@@ -1,5 +1,5 @@
 const initial = {
-  room: 11,
+  room: 4,
   score: 0,
   moves: 0,
   brief: false,
