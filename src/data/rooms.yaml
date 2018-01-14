@@ -1,28 +1,26 @@
 '0':
   name: Limbo
-  description: |
-    You are standing in Limbo, THERE IS NO WAY OUT!
+  description: 'You are standing in Limbo, THERE IS NO WAY OUT!'
 '1':
   name: Rolling hills
-  description: |
-    You are standing amongst some large hills that end in an impassible cliff
-    to the north. The hills continue to the east and south.
+  description: >-
+    You are standing amongst some large hills that end in an impassible cliff to
+    the north. The hills continue to the east and south.
   exits:
     s: '2'
     e: '6'
 '2':
   name: Small Foothills
-  description: |
-    You are standing amongst some small foothills that continue to the
-    east. To the north the hills get larger. There is an overgrown field to
-    the south.
+  description: >-
+    You are standing amongst some small foothills that continue to the east. To
+    the north the hills get larger. There is an overgrown field to the south.
   exits:
     n: '1'
     s: '3'
     e: '7'
 '3':
   name: Field
-  description: |
+  description: >-
     You are standing in the north-western corner of a large field. The field
     continues to the south. To the north lie some small hills and to the east
     you can see a small cottage.
@@ -40,7 +38,7 @@
     e: '11'
 '5':
   name: Small Cottage
-  description: |
+  description: >-
     You are standing in the grass on the west side of a small cottage. To the
     west you see some overgrown fields. You can move around the cottage to the
     north and south.
@@ -50,9 +48,9 @@
     w: '3'
 '6':
   name: Rolling hills
-  description: |
-    You are standing amongst some large hills that end in an impassible cliff
-    to the north. The hills continue to the south. A trail leads to the east
+  description: >-
+    You are standing amongst some large hills that end in an impassible cliff to
+    the north. The hills continue to the south. A trail leads to the east
     through some trees.
   exits:
     s: '7'
@@ -60,17 +58,16 @@
     w: '1'
 '7':
   name: Small Foothills
-  description: |
-    You are standing amongst some small foothills that continue on to the
-    west. To the north the hills get larger. There is a small cottage to the
-    south.
+  description: >-
+    You are standing amongst some small foothills that continue on to the west.
+    To the north the hills get larger. There is a small cottage to the south.
   exits:
     n: '6'
     s: '8'
     w: '2'
 '8':
   name: Small Cottage
-  description: |
+  description: >-
     You are standing in the grass on the north side of a small cottage. To the
     north are some small hills. You can move around the cottage to the east and
     to the west.
@@ -80,15 +77,14 @@
     w: '5'
 '9':
   name: Inside the cottage
-  description: |
-    You are standing inside the cottage.
+  description: You are standing inside the cottage.
   exits:
     s: '10'
     u: '12'
     d: '0'
 '10':
   name: Cottage Entrance
-  description: |
+  description: >-
     You are standing in the grass on the south side of a small cottage. The
     cottage continues to the east and west. To the south you see some overgrown
     fields. There is a door to the cottage here.
@@ -99,7 +95,7 @@
     w: '5'
 '11':
   name: Field
-  description: |
+  description: >-
     You are standing in the south-eastern corner of a large field. The field
     continues to the west. A small cottage lies to the north and a dark forest
     lies to the east.
