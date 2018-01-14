@@ -1,54 +1,52 @@
 body {
-  margin: 0;
-  padding: 0;
   font-family: Courier New, Courier, monospace;
-  background-color: #bbb;
-  color: #bbb;
+  background-color: #ccc;
+  color: #333;
 }
 
 .app {
-  text-align: center;
+  margin: 10px;
 }
 
-.app-header {
-  background-color: #222;
-  height: 75px;
-  padding: 20px;
-}
-
-.app-body {
-  margin: 8px;
-}
-
-.console-component {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 4px;
-  text-align: justify;
-  border: 1px solid black;
-}
-
-.console-body {
-  background-color: #222;
-  padding: 1px 6px;
-  height: 400px;
-  overflow: auto;
-  clear: both;
-  line-height: 20px;
+.console {
+  max-width: 640px;
+  margin: auto;
+  border: 1px solid #999;
+  padding: 2px;
 }
 
 .console-header {
-  color: #222;
   display: inline;
 }
 
 .console-header .title {
   float: left;
-  padding-left: 4px;
+  margin-left: 4px;
 }
 
 .console-header .stats {
   float: right;
-  padding-right: 4px;
+  margin-right: 4px;
 }
 
+.console-body-wrap {
+  height: 600px;
+  background-color: #333;
+  color: #ccc;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  clear: both;
+  padding: 8px;
+}
+
+.console-body {
+  line-height: 20px;
+  text-align: justify;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+#scroll-bottom {
+  height: 4px;
+  overflow-y: scroll;
+}

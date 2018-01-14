@@ -1,12 +1,9 @@
-import _ from 'lodash';
 import StringBuilder from 'string-builder';
 
-export default function Terminal(render, processInput) {
+export default function Terminal(renderBuffer, processInput) {
   this.buffer = new StringBuilder();
-  this.prompt = '> ';
+  this.prompt = '>\u00A0';
   this.input = '';
-  this.history = [];
-  this.historyIndex = 0;
   this.cursorVisible = true;
 
   const handleInput = (input) => {
@@ -17,24 +14,20 @@ export default function Terminal(render, processInput) {
     }
   };
 
-  this.handleChange = () => {
-    if (render) {
-      render(this.toString());
-    }
-  };
+  const handleChange = () => renderBuffer(this.toString());
 
   this.toggleCursor = () => {
     this.cursorVisible = !this.cursorVisible;
-    this.handleChange();
+    handleChange();
   };
 
-  this.appendLine = (text = '') => {
+  this.appendLine = (text) => {
     if (typeof text === 'undefined') {
-      this.buffer.append('undefined');
+      this.buffer.append('error: attempting to render undefined string');
     }
-    this.buffer.append(_.replace(text, / /, '\u00A0'));
+    this.buffer.append(text);
     this.buffer.append('\n');
-    this.handleChange();
+    handleChange();
   };
 
   this.handleKeyPress = (code, key) => {
@@ -44,7 +37,7 @@ export default function Terminal(render, processInput) {
         // backspace
         this.input = this.input.slice(0, -1);
         this.cursorVisible = true;
-        this.handleChange();
+        handleChange();
         return true;
       case 13:
         // enter
@@ -54,7 +47,7 @@ export default function Terminal(render, processInput) {
         this.buffer.append('\n');
         this.input = '';
         this.cursorVisible = true;
-        this.handleChange();
+        handleChange();
         handleInput(temp);
         temp = '';
         return true;
@@ -62,24 +55,14 @@ export default function Terminal(render, processInput) {
         // escape
         this.input = '';
         this.cursorVisible = true;
-        this.handleChange();
+        handleChange();
         return true;
-      case 38:
-        // up
-        if (this.historyIndex > 0) {
-          const historyIndex = this.historyIndex - 1;
-          this.input = this.history[historyIndex];
-          this.cursorVisible = true;
-          this.handleChange();
-          return true;
-        }
-        break;
       default:
         if (code >= 32 && code <= 90) {
           // printable chars
           this.input = `${this.input}${key}`;
           this.cursorVisible = true;
-          this.handleChange();
+          handleChange();
           return true;
         }
     }

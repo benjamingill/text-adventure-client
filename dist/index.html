@@ -3,21 +3,19 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>sweet text adventure</title>
+  <title>SWEET TEXT ADVENTURE</title>
 </head>
 
 <body>
   <div class="app">
-    <div class="app-header">
-      <h1>sweet text adventure</h1>
-    </div>
-    <div class="app-body">
-      <div class="console-component">
-        <div class="console-header">
-          <div class="title">test</div>
-          <div class="stats">0</div>
-        </div>
-        <div id="console-body" class="console-body" tabindex="0" />
+    <div class="console">
+      <div class="console-header">
+        <div id="title" class="title">test</div>
+        <div id="score" class="stats">0</div>
+      </div>
+      <div class="console-body-wrap" tabindex="0">
+        <div id="console-body" class="console-body"></div>
+        <div id="scroll-bottom" />
       </div>
     </div>
     <script src="./bundle.js"></script>
