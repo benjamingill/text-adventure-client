@@ -10,7 +10,7 @@ export default function (container, input) {
   const tokens = _.split(input, ' ');
 
   let i = 1;
-  while (i < tokens.length - 1) {
+  while (i <= tokens.length - 2) {
     if (_.includes(wordsToIgnore, tokens[i])) {
       const beforeTokenIsValid = !_.includes(wordsToIgnore, tokens[i - 1]);
       const afterTokenIsValid = !_.includes(wordsToIgnore, tokens[i + 1]);
@@ -24,9 +24,10 @@ export default function (container, input) {
     }
   }
 
-  const command = findCommand(_.join(tokens, ' '));
+  const refinedInput = _.join(tokens, ' ');
+  const command = findCommand(refinedInput);
   if (command) {
-    command.action(container, input.match(command.pattern));
+    command.action(container, isMatch(command, refinedInput));
     return true;
   }
 

@@ -1,16 +1,5 @@
-- room: '0'
-- room: '1'
-- room: '2'
-- room: '3'
-- room: '4'
+- id: '4' # field
   items:
-    - id: '2'
+    - id: '2' # wheelbarrow
       items:
-        - id: '3'
-- room: '5'
-- room: '6'
-- room: '7'
-- room: '8'
-- room: '9'
-- room: '10'
-- room: '11'
+        - id: '3' # shovel

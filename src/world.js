@@ -1,19 +1,60 @@
 import _ from 'lodash';
-import rooms from './data/rooms.yaml';
-import items from './data/items.yaml';
-import world from './data/world.yaml';
+import roomData from './data/rooms.yaml';
+import itemData from './data/items.yaml';
+import mobData from './data/mobs.yaml';
+import worldData from './data/world.yaml';
 
-const constructItem = (template) => {
-  const item = _.cloneDeep(items[template.id]);
-  item.container = _.map(template.items, constructItem);
-  return item;
+_.forEach(_.keys(itemData), (key) => { itemData[key].id = key; });
+_.forEach(_.keys(mobData), (key) => { mobData[key].id = key; });
+_.forEach(_.keys(roomData), (key) => { roomData[key].id = key; });
+
+const createWorld = () => {
+  const world = {
+    rooms: {},
+    items: {},
+    mobs: {},
+  };
+
+  const createItem = (item) => {
+    const { id, items } = item;
+    const ids = _.map(items, createItem);
+    world.items[id] = { items: ids };
+    return id;
+  };
+
+  const createRoom = (room) => {
+    const { id, items } = room;
+    const ids = _.map(items, createItem);
+    world.rooms[id] = { items: ids };
+    return id;
+  };
+
+  _.forEach(worldData, createRoom);
+  return world;
 };
 
-const constructRoom = (template) => {
-  const room = _.cloneDeep(rooms[template.room]);
-  room.id = template.room;
-  room.container = _.map(template.items, constructItem);
-  return room;
-};
+export default function World() {
+  const processedWorldData = (() => {
+    if (!localStorage.getItem('world')) {
+      localStorage.setItem('world', JSON.stringify(createWorld()));
+    }
+    return JSON.parse(localStorage.getItem('world'));
+  })();
 
-export default _.chain(world).map(constructRoom).keyBy('id').value();
+  this.map = processedWorldData;
+  this.rooms = roomData;
+
+  this.getItem = id => itemData[id];
+
+  this.getItemsFromItem = (id) => {
+    const ids = this.map.items[id] && this.map.items[id].items;
+    return _.map(ids, this.getItem);
+  };
+
+  this.getItemsFromRoom = (id) => {
+    const ids = this.map.rooms[id] && this.map.rooms[id].items;
+    return _.map(ids, this.getItem);
+  };
+
+  this.getRoom = id => roomData[id];
+}
