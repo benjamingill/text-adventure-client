@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { fromAbbreviations } from '../directions';
 
-const action = ({ player, rooms, terminal }) => {
+const action = ({ player, world, terminal }) => {
   const displayItemInInventory = (item) => {
     terminal.appendLine(` ${item.inventoryDescription}`);
   };
@@ -15,19 +15,19 @@ const action = ({ player, rooms, terminal }) => {
       terminal.appendLine(item.shortDescription);
     }
 
-    if (item.isContainer && !item.isClosed && _.size(item.container) === 0) {
+    const subItems = world.getItemsFromItem(item.id);
+    if (item.isContainer && !item.isClosed && _.size(subItems) === 0) {
       terminal.appendLine(`The ${item.name} contains:`);
       terminal.appendLine(' nothing');
     }
 
-    if (item.isContainer && !item.isClosed && _.size(item.container) > 0) {
+    if (item.isContainer && !item.isClosed && _.size(subItems) > 0) {
       terminal.appendLine(`The ${item.name} contains:`);
-      _.forEach(item.container, displayItemInInventory);
-      terminal.appendLine('');
+      _.forEach(subItems, displayItemInInventory);
     }
   };
 
-  const room = rooms[player.getCurrentRoom()];
+  const room = world.getRoom(player.getCurrentRoom());
   terminal.appendLine(room.name);
 
   if (!player.getIsBriefMode()) {
@@ -46,8 +46,9 @@ const action = ({ player, rooms, terminal }) => {
 
   terminal.appendLine('');
 
-  if (_.size(room.container)) {
-    _.forEach(room.container, displayItemInRoom);
+  const items = world.getItemsFromRoom(room.id);
+  if (_.size(items)) {
+    _.forEach(items, displayItemInRoom);
     terminal.appendLine('');
   }
 };

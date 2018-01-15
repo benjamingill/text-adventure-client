@@ -1,30 +1,34 @@
 import parse from '../parser';
 import Player from '../player';
-import { rooms } from '../world';
+import World from '../world';
 
-jest.mock('../world', () => ({
-  rooms: {
-    1: {
-      exits: { n: 2 },
-    },
-    2: {
-      name: 'Dirty Test Room',
-      exits: { n: 3 },
-    },
-    3: {
-    },
+jest.mock('../world');
+
+const world = new World();
+const testRooms = {
+  1: {
+    exits: { n: 2 },
   },
-}));
+  2: {
+    name: 'Dirty Test Room',
+    exits: { n: 3 },
+  },
+  3: {
+  },
+};
 
 beforeEach(() => {
+  world.getRoom.mockImplementation(id => testRooms[id]);
+});
+
+afterEach(() => {
   localStorage.clear();
   jest.clearAllMocks();
 });
 
-
 test('current room is correctly updated when player enters \'n\'', () => {
   const player = new Player({ room: 1, score: 0, moves: 0 });
-  const container = { player, rooms, terminal: { appendLine: jest.fn() } };
+  const container = { player, world, terminal: { appendLine: jest.fn() } };
   parse(container, 'n');
 
   expect(player.getCurrentRoom()).toEqual(2);
@@ -35,7 +39,7 @@ test('current room is correctly updated when player enters \'n\'', () => {
 
 test('current room is correctly updated when player enters \'north\'', () => {
   const player = new Player({ room: 1, score: 0, moves: 0 });
-  const container = { player, rooms, terminal: { appendLine: jest.fn() } };
+  const container = { player, world, terminal: { appendLine: jest.fn() } };
   parse(container, 'north');
 
   expect(player.getCurrentRoom()).toEqual(2);
@@ -46,7 +50,7 @@ test('current room is correctly updated when player enters \'north\'', () => {
 
 test('error is displayed when trying to move north when direction is invalid', () => {
   const player = new Player({ room: 3, score: 0, moves: 0 });
-  const container = { player, rooms, terminal: { appendLine: jest.fn() } };
+  const container = { player, world, terminal: { appendLine: jest.fn() } };
   parse(container, 'north');
 
   expect(player.getCurrentRoom()).toEqual(3);
@@ -56,7 +60,7 @@ test('error is displayed when trying to move north when direction is invalid', (
 
 test('current room is correctly updated when player moves north twice', () => {
   const player = new Player({ room: 1, score: 0, moves: 0 });
-  const container = { player, rooms, terminal: { appendLine: jest.fn() } };
+  const container = { player, world, terminal: { appendLine: jest.fn() } };
 
   expect(player.getCurrentRoom()).toEqual(1);
   parse(container, 'n');

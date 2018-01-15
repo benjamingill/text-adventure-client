@@ -1,0 +1,18 @@
+'0':
+  name: chicken
+  keywords:
+    - chicken
+  description: The chicken goes CLUCK CLUCK.
+  shortDescription: There is a mysterious chicken here.
+'1':
+  name: shadowy figure
+  keywords:
+    - shadow
+    - shadowy
+    - figure
+    - man
+  description: >-
+    The tall figure is hunched over and wrapped in an inky black cloak. The hood
+    of the cloak covers a good portion of his face. He is wielding a gleaming
+    silver dagger!
+  shortDescription: A shadowy figure blocks your path to the east!

@@ -1,16 +1,17 @@
 import look from './commands/look';
 import Player from './player';
-import rooms from './world';
+import World from './world';
 import Terminal from './terminal';
 import parser from './parser';
 import './index.css';
 
 const player = new Player();
+const world = new World();
 
 const renderConsole = (buffer) => {
   const oldLength = document.getElementById('console-body').innerText.length;
   document.getElementById('console-body').innerText = buffer;
-  document.getElementById('title').innerHTML = rooms[player.getCurrentRoom()].name;
+  document.getElementById('title').innerHTML = world.getRoom(player.getCurrentRoom()).name;
   document.getElementById('score').innerHTML = `Score: ${player.getCurrentScore()}`;
 
   if (buffer.length !== oldLength) {
@@ -24,7 +25,7 @@ const processInput = (terminal, input) => {
   }
   const container = {
     player,
-    rooms,
+    world,
     terminal,
   };
   parser(container, input);
@@ -35,7 +36,7 @@ terminal.appendLine('\n\u00A0\u00A0Welcome to SWEET TEXT ADVENTURE!\n\u00A0\u00A
 
 look.action({
   player: new Player(),
-  rooms,
+  world,
   terminal,
 });
 

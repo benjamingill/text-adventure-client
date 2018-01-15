@@ -1,30 +1,34 @@
 import parse from '../parser';
 import Player from '../player';
-import { rooms } from '../world';
+import World from '../world';
 
-jest.mock('../world', () => ({
-  rooms: {
-    1: {
-      exits: { u: 2 },
-    },
-    2: {
-      name: 'Dirty Test Room',
-      exits: { u: 3 },
-    },
-    3: {
-    },
+jest.mock('../world');
+
+const world = new World();
+const testRooms = {
+  1: {
+    exits: { u: 2 },
   },
-}));
+  2: {
+    name: 'Dirty Test Room',
+    exits: { u: 3 },
+  },
+  3: {
+  },
+};
 
 beforeEach(() => {
+  world.getRoom.mockImplementation(id => testRooms[id]);
+});
+
+afterEach(() => {
   localStorage.clear();
   jest.clearAllMocks();
 });
 
-
 test('current room is correctly updated when player enters \'u\'', () => {
   const player = new Player({ room: 1, score: 0, moves: 0 });
-  const container = { player, rooms, terminal: { appendLine: jest.fn() } };
+  const container = { player, world, terminal: { appendLine: jest.fn() } };
   parse(container, 'u');
 
   expect(player.getCurrentRoom()).toEqual(2);
@@ -35,7 +39,7 @@ test('current room is correctly updated when player enters \'u\'', () => {
 
 test('current room is correctly updated when player enters \'up\'', () => {
   const player = new Player({ room: 1, score: 0, moves: 0 });
-  const container = { player, rooms, terminal: { appendLine: jest.fn() } };
+  const container = { player, world, terminal: { appendLine: jest.fn() } };
   parse(container, 'up');
 
   expect(player.getCurrentRoom()).toEqual(2);
@@ -46,7 +50,7 @@ test('current room is correctly updated when player enters \'up\'', () => {
 
 test('error is displayed when trying to move up when direction is invalid', () => {
   const player = new Player({ room: 3, score: 0, moves: 0 });
-  const container = { player, rooms, terminal: { appendLine: jest.fn() } };
+  const container = { player, world, terminal: { appendLine: jest.fn() } };
   parse(container, 'up');
 
   expect(player.getCurrentRoom()).toEqual(3);
@@ -56,7 +60,7 @@ test('error is displayed when trying to move up when direction is invalid', () =
 
 test('current room is correctly updated when player moves up twice', () => {
   const player = new Player({ room: 1, score: 0, moves: 0 });
-  const container = { player, rooms, terminal: { appendLine: jest.fn() } };
+  const container = { player, world, terminal: { appendLine: jest.fn() } };
 
   expect(player.getCurrentRoom()).toEqual(1);
   parse(container, 'u');
