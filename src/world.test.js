@@ -1,25 +1,102 @@
+import _ from 'lodash';
 import World from './world';
+
+const mockWorld = {
+  rooms: {
+    0: { id: 0, name: 'Dirty Test Room' },
+    1: { id: 1, name: 'Dirty Test Room 2' },
+  },
+  items: {
+    0: { id: 0, name: 'wooden wheelbarrow', keywords: ['wooden wheelbarrow', 'wooden', 'wheelbarrow'] },
+    1: { id: 1, name: 'tin bucket', keywords: ['tin bucket', 'tin', 'bucket'] },
+    2: { id: 2, name: 'golden locket', keywords: ['golden locket', 'golden', 'locket'] },
+  },
+  map: [{ id: 0, items: [{ id: 0, items: [{ id: 1 }] }] }],
+};
+
 
 beforeEach(() => {
   localStorage.clear();
 });
 
-test('the world loads a room titled \'Limbo\' with id 0', () => {
-  expect(new World().getRoom(0).name).toEqual('Limbo');
+test('the default world contains a room named \'Limbo\'', () => {
+  expect(new World().getRoom(0)).toMatchObject({ name: 'Limbo' });
 });
 
-test('the world loads a room titled \'Field\' with id 4', () => {
-  expect(new World().getRoom(4).name).toEqual('Field');
+test('instantiating the world again results in the same world', () => {
+  let world = new World(mockWorld);
+  expect(world.findItemsInRoom(0, 'wheelbarrow').length).toEqual(1);
+
+  world.removeItemFromRoom(0, 0);
+  world = new World();
+  expect(world.findItemsInRoom(0, 'wheelbarrow').length).toEqual(0);
 });
 
-test('room 4, the \'Field\' contains a wheelbarrow', () => {
-  const items = new World().getItemsFromRoom(4);
-  expect(items[0]).toMatchObject({ name: 'wooden wheelbarrow' });
+test('the world contains a room named \'Dirty Test Room\'', () => {
+  expect(new World(mockWorld).getRoom(0)).toMatchObject({ name: 'Dirty Test Room' });
 });
 
-test('the wheelbarrow in room 4 contains a shovel', () => {
-  const items = new World().getItemsFromRoom(4);
-  const childItems = new World().getItemsFromItem(items[0].id);
-  expect(childItems[0]).toMatchObject({ name: 'shovel' });
+test('the world contains an item named \'wooden wheelbarrow\'', () => {
+  expect(new World(mockWorld).getItem(0)).toMatchObject({ name: 'wooden wheelbarrow' });
 });
 
+test('the world contains a room with a single wooden wheelbarrow', () => {
+  expect(new World(mockWorld).getItemsFromRoom(0)).toMatchObject([{ name: 'wooden wheelbarrow' }]);
+});
+
+test('the world has a room with an item that can be queried by keyword', () => {
+  expect(new World(mockWorld).findItemsInRoom(0, 'wheelbarrow')).toMatchObject([{ name: 'wooden wheelbarrow' }]);
+});
+
+test('the world is okay with querying an empty room for items', () => {
+  expect(new World(mockWorld).findItemsInRoom(1, 'wheelbarrow').length).toEqual(0);
+});
+
+test('the world has a room with an item that can be removed', () => {
+  const world = new World(mockWorld);
+  world.removeItemFromRoom(0, 0);
+  expect(_.size(world.findItemsInRoom(0, 'wheelbarrow'))).toEqual(0);
+});
+
+test('the world has a room with an item that contains another item', () => {
+  const world = new World(mockWorld);
+  const wheelbarrow = world.getItemsFromRoom(0)[0];
+  expect(world.getItemsFromItem(wheelbarrow.id)).toMatchObject([{ name: 'tin bucket' }]);
+});
+
+test('the world has a room with an item that has an item that can be queried by keyword', () => {
+  const world = new World(mockWorld);
+  const wheelbarrow = world.getItemsFromRoom(0)[0];
+  expect(world.findItemsInItem(wheelbarrow.id, 'tin')).toMatchObject([{ name: 'tin bucket' }]);
+});
+
+test('the world is okay with querying an empty item for items', () => {
+  expect(new World(mockWorld).findItemsInItem(2, 'tin').length).toEqual(0);
+});
+
+test('the world allows me to remove an item from a room and place it in my inventory', () => {
+  const world = new World(mockWorld);
+  world.removeItemFromRoom(0, 0);
+  world.addItemToInventory(0);
+
+  expect(world.getItemsFromRoom(0).length).toEqual(0);
+  expect(world.getItemsFromInventory()).toMatchObject([{ name: 'wooden wheelbarrow' }]);
+});
+
+test('the world doesn\'t allow me to add the same object twice to my inventory', () => {
+  const world = new World(mockWorld);
+  world.removeItemFromRoom(0, 0);
+  world.addItemToInventory(0);
+  world.addItemToInventory(0);
+
+  expect(world.getItemsFromInventory().length).toEqual(1);
+});
+
+test('the world has an inventory that lets me query items by keyword', () => {
+  const world = new World({ ...mockWorld, inv: [1] });
+  expect(world.findItemsInInventory('tin')).toMatchObject([{ name: 'tin bucket' }]);
+});
+
+test('the world is okay with querying the inventory for items that don\'t exist', () => {
+  expect(new World(mockWorld).findItemsInInventory('dagger').length).toEqual(0);
+});
