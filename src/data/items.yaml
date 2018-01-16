@@ -1,4 +1,4 @@
-'1':
+- id: 1
   name: trophy case
   keywords:
     - case
@@ -14,7 +14,7 @@
   moveDescription: The trophy case is too heavy to move around.
   isContainer: true
   canClose: true
-'2':
+- id: 2
   name: wooden wheelbarrow
   keywords:
     - large wooden wheelbarrow
@@ -31,7 +31,7 @@
   moveDescription: You move the wheelbarrow.
   isContainer: true
   canClose: false
-'3':
+- id: 3
   name: shovel
   keywords:
     - shovel
@@ -41,7 +41,7 @@
   inventoryDescription: a shovel
   canTake: true
   isContainer: false
-'4':
+- id: 4
   name: jewelry box
   keywords:
     - jewelry box
@@ -59,18 +59,3 @@
   can_lock: false
   is_locked: true
   key_id: '10'
-x:
-  name: wooden thingy
-  keywords:
-    - large wooden thingy
-    - wooden thingy
-    - wooden
-    - thingy
-  description: The large thingy is made out of wood.
-  short_description: 'A large, wooden thingy is here.'
-  inventory_description: a thingy
-  can_take: true
-  can_move: true
-  move_description: You move the thingy. yay.
-  is_container: true
-  can_close: false
