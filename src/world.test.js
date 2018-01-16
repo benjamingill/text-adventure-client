@@ -14,7 +14,6 @@ const mockWorld = {
   map: [{ id: 0, items: [{ id: 0, items: [{ id: 1 }] }] }],
 };
 
-
 beforeEach(() => {
   localStorage.clear();
 });

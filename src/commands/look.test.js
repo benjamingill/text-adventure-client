@@ -1,5 +1,4 @@
 import parse from '../parser';
-import Player from '../player';
 import World from '../world';
 
 jest.mock('../world');
@@ -12,6 +11,7 @@ const world = new World();
 
 beforeEach(() => {
   world.getRoom.mockImplementation(() => ({ id: 1, name, description }));
+  world.getOptions.mockImplementation(() => ({ brief: false }));
 });
 
 afterEach(() => {
@@ -21,10 +21,8 @@ afterEach(() => {
 
 
 test('terminal displays current room when player enters \'l\'', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-
   world.getRoom.mockImplementation(() => ({ name, description, exits: { n: 2, s: 3 } }));
-  const container = { player, world, terminal };
+  const container = { world, terminal };
 
   parse(container, 'l');
 
@@ -35,10 +33,8 @@ test('terminal displays current room when player enters \'l\'', () => {
 });
 
 test('terminal displays current room when player enters \'look\'', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-
   world.getRoom.mockImplementation(() => ({ name, description, exits: { n: 2, s: 3 } }));
-  const container = { player, world, terminal };
+  const container = { world, terminal };
 
   parse(container, 'l');
 
@@ -49,12 +45,9 @@ test('terminal displays current room when player enters \'look\'', () => {
 });
 
 test('terminal displays current room correctly when player enters \'look\' and is in brief mode', () => {
-  const player = new Player({
-    room: 1, score: 0, moves: 0, brief: true,
-  });
-
   world.getRoom.mockImplementation(() => ({ name, description, exits: { n: 2, s: 3 } }));
-  const container = { player, world, terminal };
+  world.getOptions.mockImplementation(() => ({ brief: true }));
+  const container = { world, terminal };
 
   parse(container, 'l');
 
@@ -64,10 +57,8 @@ test('terminal displays current room correctly when player enters \'look\' and i
 });
 
 test('terminal displays no exits if no exits exist', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-
   world.getRoom.mockImplementation(() => ({ name, description }));
-  const container = { player, world, terminal };
+  const container = { world, terminal };
 
   parse(container, 'l');
 
@@ -78,11 +69,9 @@ test('terminal displays no exits if no exits exist', () => {
 });
 
 test('terminal displays an object in the room if an object exists', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-
   world.getRoom.mockImplementation(() => ({ id: 1, name, description }));
   world.getItemsFromRoom.mockImplementation(() => ([{ shortDescription: 'Someone left a coffee mug on the ground here.' }]));
-  const container = { player, world, terminal };
+  const container = { world, terminal };
 
   parse(container, 'l');
 
@@ -95,8 +84,6 @@ test('terminal displays an object in the room if an object exists', () => {
 });
 
 test('terminal displays an object in the room as closed if the object is a container and is closed', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-
   world.getRoom.mockImplementation(() => ({ id: 1, name, description }));
   world.getItemsFromRoom.mockImplementation(() => ([{
     name: 'metal case',
@@ -105,7 +92,7 @@ test('terminal displays an object in the room as closed if the object is a conta
     canClose: true,
     isClosed: true,
   }]));
-  const container = { player, world, terminal };
+  const container = { world, terminal };
 
   parse(container, 'l');
 
@@ -118,8 +105,6 @@ test('terminal displays an object in the room as closed if the object is a conta
 });
 
 test('terminal displays an object in the room as opened if the object is a container and is opened', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-
   world.getRoom.mockImplementation(() => ({ id: 1, name, description }));
   world.getItemsFromRoom.mockImplementation(() => ([{
     name: 'metal case',
@@ -128,7 +113,7 @@ test('terminal displays an object in the room as opened if the object is a conta
     canClose: true,
     isClosed: false,
   }]));
-  const container = { player, world, terminal };
+  const container = { world, terminal };
 
   parse(container, 'l');
 
@@ -141,8 +126,6 @@ test('terminal displays an object in the room as opened if the object is a conta
 });
 
 test('terminal displays an object in the room as neither opened nor closed if the object is a container that can\'t be closed', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-
   world.getRoom.mockImplementation(() => ({ id: 1, name, description }));
   world.getItemsFromRoom.mockImplementation(() => ([{
     name: 'stupid wheelbarrow',
@@ -150,7 +133,7 @@ test('terminal displays an object in the room as neither opened nor closed if th
     isContainer: true,
     canClose: false,
   }]));
-  const container = { player, world, terminal };
+  const container = { world, terminal };
 
   parse(container, 'l');
 
@@ -164,8 +147,6 @@ test('terminal displays an object in the room as neither opened nor closed if th
 });
 
 test('terminal displays an object in the inventory of an opened container', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-
   world.getRoom.mockImplementation(() => ({ id: 1, name, description }));
   world.getItemsFromRoom.mockImplementation(() => ([{
     name: 'stupid wheelbarrow',
@@ -176,7 +157,7 @@ test('terminal displays an object in the inventory of an opened container', () =
   world.getItemsFromItem.mockImplementation(() => ([{
     inventoryDescription: 'a shovel',
   }]));
-  const container = { player, world, terminal };
+  const container = { world, terminal };
 
   parse(container, 'l');
 

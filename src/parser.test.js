@@ -1,16 +1,18 @@
-import Player from './player';
 import parse from './parser';
 import commands from './commands';
+import World from './world';
 
+jest.mock('./world');
 jest.mock('./commands', () => [
   { pattern: /^north$/, action: jest.fn() },
   { pattern: /^take sword$/, action: jest.fn() },
   { pattern: /^take amulet from pouch in backpack$/, action: jest.fn() },
 ]);
 
+const world = new World();
+
 test('handles a command when a know action is entered', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'north');
 
@@ -19,8 +21,7 @@ test('handles a command when a know action is entered', () => {
 });
 
 test('gives message stating no action is available when an unknown action is entered', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'a;dkuvaerugb4ebi');
 
@@ -29,8 +30,7 @@ test('gives message stating no action is available when an unknown action is ent
 });
 
 test('does not process if there is a single ignorable word at the beginning of an input statement', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'at north');
 
@@ -38,8 +38,7 @@ test('does not process if there is a single ignorable word at the beginning of a
 });
 
 test('does not process if there are multiple ignorable words at the beginning of an input statement', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'at the north');
 
@@ -47,8 +46,7 @@ test('does not process if there are multiple ignorable words at the beginning of
 });
 
 test('does not process if there is an ignorable word at the end of an input statement', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'north at');
 
@@ -56,8 +54,7 @@ test('does not process if there is an ignorable word at the end of an input stat
 });
 
 test('does not process if there are multiple ignorable word at the end of an input statement', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'north at the');
 
@@ -65,8 +62,7 @@ test('does not process if there are multiple ignorable word at the end of an inp
 });
 
 test('processes if there is a single ignorable word in the middle of an input statement', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'take the sword');
 
@@ -75,8 +71,7 @@ test('processes if there is a single ignorable word in the middle of an input st
 });
 
 test('does not process if there are multiple ignorable words in the middle of an input statement', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'take the at sword');
 
@@ -84,8 +79,7 @@ test('does not process if there are multiple ignorable words in the middle of an
 });
 
 test('processes if there are multiple ignorable words in the middle of an input statement separated by non-ignorable words', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'take the amulet from the pouch in the backpack');
 
@@ -94,8 +88,7 @@ test('processes if there are multiple ignorable words in the middle of an input 
 });
 
 test('does not process if there are multiple ignorable words in the middle of an input statement not separated by non-ignorable words', () => {
-  const player = new Player({ currentRoom: 1, score: 0, moves: 0 });
-  const container = { player, terminal: { appendLine: jest.fn() } };
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
   const result = parse(container, 'take the amulet from the at pouch in the backpack');
 

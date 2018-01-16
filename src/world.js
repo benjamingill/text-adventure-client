@@ -8,39 +8,47 @@ _.forEach(_.keys(itemData), (key) => { itemData[key].id = key; });
 _.forEach(_.keys(mobData), (key) => { mobData[key].id = key; });
 _.forEach(_.keys(roomData), (key) => { roomData[key].id = key; });
 
+const startingRoom = 4;
+
+const createWorld = (data) => {
+  const state = {
+    currentRoom: data.currentRoom || startingRoom,
+    inv: data.inv || [],
+    items: {},
+    mobs: {},
+    moves: 0,
+    options: {
+      brief: false,
+      debug: false,
+    },
+    rooms: {},
+    score: 0,
+  };
+
+  const createItem = (item) => {
+    const { id, items } = item;
+    state.items[id] = { items: _.map(items, createItem) };
+    return id;
+  };
+
+  const createRoom = (room) => {
+    const { id, items } = room;
+    state.rooms[id] = { items: _.map(items, createItem) };
+    return id;
+  };
+
+  _.forEach(data.map, createRoom);
+  return state;
+};
+
 const worldData = {
   rooms: roomData,
   items: itemData,
   map: mapData,
 };
 
-
-const createWorld = (data) => {
-  const world = {
-    inv: data.inv || [],
-    items: {},
-    mobs: {},
-    rooms: {},
-  };
-
-  const createItem = (item) => {
-    const { id, items } = item;
-    world.items[id] = { items: _.map(items, createItem) };
-    return id;
-  };
-
-  const createRoom = (room) => {
-    const { id, items } = room;
-    world.rooms[id] = { items: _.map(items, createItem) };
-    return id;
-  };
-
-  _.forEach(data.map, createRoom);
-  return world;
-};
-
 export default function World(data = worldData) {
-  const world = (() => {
+  const state = (() => {
     if (!localStorage.getItem('world')) {
       localStorage.setItem('world', JSON.stringify(createWorld(data)));
     }
@@ -48,8 +56,8 @@ export default function World(data = worldData) {
   })();
 
   this.addItemToInventory = (id) => {
-    if (!_.size(_.filter(world.inv, i => i === id))) {
-      world.inv.push(id);
+    if (!_.size(_.filter(state.inv, i => i === id))) {
+      state.inv.push(id);
     }
   };
 
@@ -72,25 +80,35 @@ export default function World(data = worldData) {
   this.getItem = id => data.items[id];
 
   this.getItemsFromItem = (id) => {
-    const ids = world.items[id] && world.items[id].items;
+    const ids = state.items[id] && state.items[id].items;
     return _.map(ids, this.getItem);
   };
 
   this.getItemsFromRoom = (id) => {
-    const ids = world.rooms[id] && world.rooms[id].items;
+    const ids = state.rooms[id] && state.rooms[id].items;
     return _.map(ids, this.getItem);
   };
 
+  this.getCurrentRoom = () => state.currentRoom;
+
+  this.getScore = () => state.score;
+
+  this.getMoves = () => state.moves;
+
+  this.getOptions = () => state.options;
+
   this.getItemsFromInventory = () =>
-    _.map(world.inv, this.getItem);
+    _.map(state.inv, this.getItem);
 
   this.getRoom = id => data.rooms[id];
 
   this.removeItemFromRoom = (roomId, itemId) => {
-    const room = world.rooms[roomId];
+    const room = state.rooms[roomId];
     const index = room.items.indexOf(itemId);
     room.items.splice(index, 1);
   };
 
-  this.save = () => localStorage.setItem('world', JSON.stringify(world));
+  this.save = () => localStorage.setItem('world', JSON.stringify(state));
+
+  this.setCurrentRoom = (id) => { state.currentRoom = id; };
 }
