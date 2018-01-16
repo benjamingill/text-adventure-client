@@ -11,12 +11,25 @@ afterEach(() => {
   world = new World();
 });
 
+test('take matches pattern', () => {
+  expect(JSON.stringify('take'.match(take.pattern))).toBe(JSON.stringify(['take', null]));
+});
+
 test('take single word command matches pattern', () => {
   expect(JSON.stringify('take lantern'.match(take.pattern))).toBe(JSON.stringify(['take lantern', 'lantern']));
 });
 
 test('take multi-word command matches pattern', () => {
   expect(JSON.stringify('take brass lantern'.match(take.pattern))).toBe(JSON.stringify(['take brass lantern', 'brass lantern']));
+});
+
+test('nonsense doesn\'t match pattern', () => {
+  expect(JSON.stringify('tasdfsdfsdf'.match(take.pattern))).toBe(JSON.stringify(null));
+});
+
+test('\'take\' results in warning message', () => {
+  take.action({ world, terminal }, 'take'.match(take.pattern));
+  expect(terminal.appendLine.mock.calls[0][0]).toEqual('Take what?');
 });
 
 test('taking object in room moves it to inventory', () => {
