@@ -4,6 +4,7 @@ import look from './look';
 import north from './north';
 import south from './south';
 import up from './up';
+import take from './take';
 import west from './west';
 
 export default [
@@ -13,5 +14,6 @@ export default [
   north,
   south,
   up,
+  take,
   west,
 ];

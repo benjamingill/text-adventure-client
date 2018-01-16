@@ -29,6 +29,7 @@ const processInput = (terminal, input) => {
     terminal,
   };
   parser(container, input);
+  world.save();
 };
 
 const terminal = new Terminal(renderConsole, processInput);
