@@ -5,6 +5,14 @@ export default function World() {
 
   this.findItemsInRoom = jest.fn();
 
+  this.getCurrentRoom = jest.fn();
+
+  this.getScore = jest.fn();
+
+  this.getMoves = jest.fn();
+
+  this.getOptions = jest.fn();
+
   this.getItem = jest.fn();
 
   this.getItemsFromItem = jest.fn();
@@ -14,4 +22,6 @@ export default function World() {
   this.getRoom = jest.fn();
 
   this.removeItemFromRoom = jest.fn();
+
+  this.setCurrentRoom = jest.fn();
 }

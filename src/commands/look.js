@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { fromAbbreviations } from '../directions';
 
-const action = ({ player, world, terminal }) => {
+const action = ({ world, terminal }) => {
   const displayItemInInventory = (item) => {
     terminal.appendLine(` ${item.inventoryDescription}`);
   };
@@ -27,10 +27,10 @@ const action = ({ player, world, terminal }) => {
     }
   };
 
-  const room = world.getRoom(player.getCurrentRoom());
+  const room = world.getRoom(world.getCurrentRoom());
   terminal.appendLine(room.name);
 
-  if (!player.getIsBriefMode()) {
+  if (!world.getOptions().brief) {
     terminal.appendLine(room.description);
   }
 
@@ -38,7 +38,7 @@ const action = ({ player, world, terminal }) => {
     terminal.appendLine('[none]');
   } else {
     let directions = _.keys(room.exits);
-    if (!player.getIsBriefMode()) {
+    if (!world.getOptions().brief) {
       directions = _.map(directions, fromAbbreviations);
     }
     terminal.appendLine(`[${_.join(directions, ', ')}]`);

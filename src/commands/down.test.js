@@ -1,25 +1,8 @@
-import parse from '../parser';
-import Player from '../player';
+import down from './down';
 import World from '../world';
 
+jest.mock('./look');
 jest.mock('../world');
-
-const world = new World();
-const testRooms = {
-  1: {
-    exits: { d: 2 },
-  },
-  2: {
-    name: 'Dirty Test Room',
-    exits: { d: 3 },
-  },
-  3: {
-  },
-};
-
-beforeEach(() => {
-  world.getRoom.mockImplementation(id => testRooms[id]);
-});
 
 afterEach(() => {
   localStorage.clear();
@@ -27,45 +10,37 @@ afterEach(() => {
 });
 
 test('current room is correctly updated when player enters \'d\'', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
+  const world = new World();
+  world.getRoom.mockImplementation(() => ({ exits: { d: 10 } }));
 
-  const container = { player, world, terminal: { appendLine: jest.fn() } };
-  parse(container, 'd');
+  const container = { world, terminal: { appendLine: jest.fn() } };
 
-  expect(player.getCurrentRoom()).toEqual(2);
+  down.action(container, 'd');
+
+  expect(world.setCurrentRoom.mock.calls[0][0]).toEqual(10);
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move down.');
-  expect(container.terminal.appendLine.mock.calls[1][0]).toEqual('');
-  expect(container.terminal.appendLine.mock.calls[2][0]).toEqual('Dirty Test Room');
 });
 
 test('current room is correctly updated when player enters \'down\'', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-  const container = { player, world, terminal: { appendLine: jest.fn() } };
-  parse(container, 'down');
+  const world = new World();
+  world.getRoom.mockImplementation(() => ({ exits: { d: 10 } }));
 
-  expect(player.getCurrentRoom()).toEqual(2);
+  const container = { world, terminal: { appendLine: jest.fn() } };
+
+  down.action(container, 'down');
+
+  expect(world.setCurrentRoom.mock.calls[0][0]).toEqual(10);
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You move down.');
-  expect(container.terminal.appendLine.mock.calls[1][0]).toEqual('');
-  expect(container.terminal.appendLine.mock.calls[2][0]).toEqual('Dirty Test Room');
 });
 
 test('error is displayed when trying to move down when direction is invalid', () => {
-  const player = new Player({ room: 3, score: 0, moves: 0 });
-  const container = { player, world, terminal: { appendLine: jest.fn() } };
-  parse(container, 'down');
+  const world = new World();
+  world.getRoom.mockImplementation(() => ({}));
 
-  expect(player.getCurrentRoom()).toEqual(3);
+  const container = { world, terminal: { appendLine: jest.fn() } };
+
+  down.action(container, 'down');
+
+  expect(world.setCurrentRoom.mock.calls.length).toEqual(0);
   expect(container.terminal.appendLine.mock.calls[0][0]).toEqual('You cannot move down.');
-  expect(container.terminal.appendLine.mock.calls[1][0]).toEqual('');
-});
-
-test('current room is correctly updated when player moves down twice', () => {
-  const player = new Player({ room: 1, score: 0, moves: 0 });
-  const container = { player, world, terminal: { appendLine: jest.fn() } };
-
-  expect(player.getCurrentRoom()).toEqual(1);
-  parse(container, 'd');
-  expect(player.getCurrentRoom()).toEqual(2);
-  parse(container, 'd');
-  expect(player.getCurrentRoom()).toEqual(3);
 });

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const action = ({ player, world, terminal }, match) => {
+const action = ({ world, terminal }, match) => {
   const handleItemsFoundInInventory = (items) => {
     if (_.size(items) > 1) {
       terminal.appendLine(`You are already holding a number of items that fit the description of '${match[1]}'.`);
@@ -23,7 +23,7 @@ const action = ({ player, world, terminal }, match) => {
     }
   };
 
-  const currentRoom = player.getCurrentRoom();
+  const currentRoom = world.getCurrentRoom();
   const itemsInRoom = world.findItemsInRoom(currentRoom, match[1]);
   if (_.size(itemsInRoom)) {
     handleItemsFoundInRoom(currentRoom, itemsInRoom);
