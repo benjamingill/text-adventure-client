@@ -23,22 +23,26 @@ const action = ({ world, terminal }, match) => {
     }
   };
 
-  const currentRoom = world.getCurrentRoom();
-  const itemsInRoom = world.findItemsInRoom(currentRoom, match[1]);
-  if (_.size(itemsInRoom)) {
-    handleItemsFoundInRoom(currentRoom, itemsInRoom);
+  if (typeof match[1] === 'undefined') {
+    terminal.appendLine('Take what?');
   } else {
-    const itemsInInventory = world.findItemsInInventory(match[1]);
-    if (_.size(itemsInInventory)) {
-      handleItemsFoundInInventory(itemsInInventory);
+    const currentRoom = world.getCurrentRoom();
+    const itemsInRoom = world.findItemsInRoom(currentRoom, match[1]);
+    if (_.size(itemsInRoom)) {
+      handleItemsFoundInRoom(currentRoom, itemsInRoom);
     } else {
-      terminal.appendLine(`You do not see a ${match[1]} here.`);
+      const itemsInInventory = world.findItemsInInventory(match[1]);
+      if (_.size(itemsInInventory)) {
+        handleItemsFoundInInventory(itemsInInventory);
+      } else {
+        terminal.appendLine(`You do not see a ${match[1]} here.`);
+      }
     }
   }
   terminal.appendLine('');
 };
 
 export default {
-  pattern: /^take\s+([\w\s]+)$/,
+  pattern: /^take$|^take\s+([\w\s]+)$/,
   action,
 };
