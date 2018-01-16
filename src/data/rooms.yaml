@@ -1,7 +1,7 @@
-'0':
+- id: 0
   name: Limbo
   description: 'You are standing in Limbo, THERE IS NO WAY OUT!'
-'1':
+- id: 1
   name: Rolling hills
   description: >-
     You are standing amongst some large hills that end in an impassible cliff to
@@ -9,7 +9,7 @@
   exits:
     s: '2'
     e: '6'
-'2':
+- id: 2
   name: Small Foothills
   description: >-
     You are standing amongst some small foothills that continue to the east. To
@@ -18,7 +18,7 @@
     n: '1'
     s: '3'
     e: '7'
-'3':
+- id: 3
   name: Field
   description: >-
     You are standing in the north-western corner of a large field. The field
@@ -28,7 +28,7 @@
     n: '2'
     s: '4'
     e: '5'
-'4':
+- id: 4
   name: Field
   description: >-
     You are standing in the south-western corner of a large field. The field
@@ -36,7 +36,7 @@
   exits:
     n: '3'
     e: '11'
-'5':
+- id: 5
   name: Small Cottage
   description: >-
     You are standing in the grass on the west side of a small cottage. To the
@@ -46,7 +46,7 @@
     n: '8'
     s: '10'
     w: '3'
-'6':
+- id: 6
   name: Rolling hills
   description: >-
     You are standing amongst some large hills that end in an impassible cliff to
@@ -54,9 +54,8 @@
     through some trees.
   exits:
     s: '7'
-    e: '0'
     w: '1'
-'7':
+- id: 7
   name: Small Foothills
   description: >-
     You are standing amongst some small foothills that continue on to the west.
@@ -65,7 +64,7 @@
     n: '6'
     s: '8'
     w: '2'
-'8':
+- id: 8
   name: Small Cottage
   description: >-
     You are standing in the grass on the north side of a small cottage. To the
@@ -75,14 +74,13 @@
     n: '7'
     e: '13'
     w: '5'
-'9':
+- id: 9
   name: Inside the cottage
   description: You are standing inside the cottage.
   exits:
     s: '10'
     u: '12'
-    d: '0'
-'10':
+- id: 10
   name: Cottage Entrance
   description: >-
     You are standing in the grass on the south side of a small cottage. The
@@ -93,7 +91,7 @@
     s: '11'
     e: '13'
     w: '5'
-'11':
+- id: 11
   name: Field
   description: >-
     You are standing in the south-eastern corner of a large field. The field

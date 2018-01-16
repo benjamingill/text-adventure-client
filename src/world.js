@@ -4,10 +4,6 @@ import itemData from './data/items.yaml';
 import mobData from './data/mobs.yaml';
 import mapData from './data/map.yaml';
 
-_.forEach(_.keys(itemData), (key) => { itemData[key].id = key; });
-_.forEach(_.keys(mobData), (key) => { mobData[key].id = key; });
-_.forEach(_.keys(roomData), (key) => { roomData[key].id = key; });
-
 const startingRoom = 4;
 
 const createWorld = (data) => {
@@ -42,8 +38,9 @@ const createWorld = (data) => {
 };
 
 const worldData = {
-  rooms: roomData,
-  items: itemData,
+  rooms: _.keyBy(roomData, o => o.id),
+  items: _.keyBy(itemData, o => o.id),
+  mobs: _.keyBy(mobData, o => o.id),
   map: mapData,
 };
 

@@ -1,10 +1,10 @@
-'0':
+- id: 0
   name: chicken
   keywords:
     - chicken
   description: The chicken goes CLUCK CLUCK.
   shortDescription: There is a mysterious chicken here.
-'1':
+- id: 1
   name: shadowy figure
   keywords:
     - shadow
