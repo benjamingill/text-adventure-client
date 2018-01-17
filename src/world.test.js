@@ -5,13 +5,18 @@ const mockWorld = {
   rooms: {
     0: { id: 0, name: 'Dirty Test Room' },
     1: { id: 1, name: 'Dirty Test Room 2' },
+    2: { id: 1, name: 'Dirty Test Room 3' },
   },
   items: {
     0: { id: 0, name: 'wooden wheelbarrow', keywords: ['wooden wheelbarrow', 'wooden', 'wheelbarrow'] },
     1: { id: 1, name: 'tin bucket', keywords: ['tin bucket', 'tin', 'bucket'] },
     2: { id: 2, name: 'golden locket', keywords: ['golden locket', 'golden', 'locket'] },
   },
-  map: [{ id: 0, items: [{ id: 0, items: [{ id: 1 }] }] }],
+  map: [
+    { id: 0, items: [{ id: 0, items: [{ id: 1 }] }] },
+    { id: 1, items: [] },
+  ],
+  inv: [],
 };
 
 beforeEach(() => {
@@ -51,6 +56,26 @@ test('the world is okay with querying an empty room for items', () => {
   expect(new World(mockWorld).findItemsInRoom(1, 'wheelbarrow').length).toEqual(0);
 });
 
+test('can add an item to a room', () => {
+  const world = new World(mockWorld);
+  world.addItemToRoom(1, 2);
+  expect(world.getItemsFromRoom(1)).toMatchObject([{ name: 'golden locket' }]);
+});
+
+test('can add an item to a room that doesn\'t have existing state', () => {
+  const world = new World(mockWorld);
+  world.addItemToRoom(2, 2);
+  expect(world.getItemsFromRoom(2)).toMatchObject([{ name: 'golden locket' }]);
+});
+
+test('can not add an item to a room twice', () => {
+  const world = new World(mockWorld);
+  world.addItemToRoom(1, 2);
+  world.addItemToRoom(1, 2);
+  expect(world.getItemsFromRoom(1).length).toEqual(1);
+});
+
+
 test('the world has a room with an item that can be removed', () => {
   const world = new World(mockWorld);
   world.removeItemFromRoom(0, 0);
@@ -84,7 +109,6 @@ test('the world allows me to remove an item from a room and place it in my inven
 
 test('the world doesn\'t allow me to add the same object twice to my inventory', () => {
   const world = new World(mockWorld);
-  world.removeItemFromRoom(0, 0);
   world.addItemToInventory(0);
   world.addItemToInventory(0);
 
@@ -98,4 +122,10 @@ test('the world has an inventory that lets me query items by keyword', () => {
 
 test('the world is okay with querying the inventory for items that don\'t exist', () => {
   expect(new World(mockWorld).findItemsInInventory('dagger').length).toEqual(0);
+});
+
+test('the world allows me to remove an item from my inventory', () => {
+  const world = new World({ ...mockWorld, inv: [1] });
+  world.removeItemFromInventory(1);
+  expect(world.getItemsFromInventory().length).toEqual(0);
 });

@@ -53,8 +53,18 @@ export default function World(data = worldData) {
   })();
 
   this.addItemToInventory = (id) => {
-    if (!_.size(_.filter(state.inv, i => i === id))) {
+    if (typeof _.find(state.inv, i => i === id) === 'undefined') {
       state.inv.push(id);
+    }
+  };
+
+  this.addItemToRoom = (roomId, itemId) => {
+    if (typeof state.rooms[roomId] === 'undefined') {
+      state.rooms[roomId] = { items: [] };
+    }
+    const { items } = state.rooms[roomId];
+    if (typeof _.find(items, i => i === itemId) === 'undefined') {
+      items.push(itemId);
     }
   };
 
@@ -98,6 +108,10 @@ export default function World(data = worldData) {
     _.map(state.inv, this.getItem);
 
   this.getRoom = id => data.rooms[id];
+
+  this.removeItemFromInventory = (itemId) => {
+    state.inv = _.filter(state.inv, i => i !== itemId);
+  };
 
   this.removeItemFromRoom = (roomId, itemId) => {
     const room = state.rooms[roomId];
