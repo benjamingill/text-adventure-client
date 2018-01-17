@@ -42,20 +42,50 @@
   canTake: true
   isContainer: false
 - id: 4
-  name: jewelry box
+  name: test box 4
   keywords:
-    - jewelry box
-    - jewelry
+    - test box 4
+    - test box
     - box
-  description: |
-    The jewelry box is a small, delicate, wooden box of exquisite
-    craftsmanship.
-  short_description: A jewelry box is here.
-  inventory_description: a jewelry box
-  can_take: true
-  is_container: true
-  can_close: true
-  is_open: false
-  can_lock: false
-  is_locked: true
-  key_id: '10'
+    - test
+    - 4
+  description: Test this. I dare you.
+  shortDescription: A debug test box is here.
+  inventoryDescription: test box 4
+  canTake: true
+- id: 5
+  name: test box 5
+  keywords:
+    - test box 5
+    - test box
+    - box
+    - test
+    - 5
+  description: Test this. I dare you.
+  shortDescription: A debug test box is here.
+  inventoryDescription: test box 5
+  canTake: true
+- id: 6
+  name: test box 6
+  keywords:
+    - test box 6
+    - test box
+    - box
+    - test
+    - 6
+  description: Test this. I dare you.
+  shortDescription: A debug test box is here. It glares menacingly at you.
+  inventoryDescription: test box 6
+  canTake: true
+- id: 7
+  name: test box 7
+  keywords:
+    - test box 7
+    - test box
+    - box
+    - test
+    - 7
+  description: Test this. I dare you.
+  shortDescription: A debug test box is here.
+  inventoryDescription: test box 7
+  canTake: true

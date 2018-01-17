@@ -1,4 +1,5 @@
 import down from './down';
+import drop from './drop';
 import east from './east';
 import look from './look';
 import north from './north';
@@ -9,6 +10,7 @@ import west from './west';
 
 export default [
   down,
+  drop,
   east,
   look,
   north,

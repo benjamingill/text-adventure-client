@@ -1,5 +1,8 @@
-- id: '4' # field
+- id: 4 # field
   items:
-    - id: '2' # wheelbarrow
+    - id: 2 # wheelbarrow
       items:
-        - id: '3' # shovel
+        - id: 4 # test box 4
+    - id: 5 # test box 5
+    - id: 6 # test box 6
+    - id: 7 # test box 7

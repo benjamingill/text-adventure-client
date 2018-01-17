@@ -1,6 +1,8 @@
 export default function World() {
   this.addItemToInventory = jest.fn();
 
+  this.addItemToRoom = jest.fn();
+
   this.findItemsInInventory = jest.fn();
 
   this.findItemsInRoom = jest.fn();
@@ -20,6 +22,8 @@ export default function World() {
   this.getItemsFromRoom = jest.fn();
 
   this.getRoom = jest.fn();
+
+  this.removeItemFromInventory = jest.fn();
 
   this.removeItemFromRoom = jest.fn();
 
