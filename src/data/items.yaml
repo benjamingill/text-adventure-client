@@ -50,7 +50,7 @@
     - test
     - 4
   description: Test this. I dare you.
-  shortDescription: A debug test box is here.
+  shortDescription: A test box is here.
   inventoryDescription: test box 4
   canTake: true
 - id: 5
@@ -61,8 +61,8 @@
     - box
     - test
     - 5
-  description: Test this. I dare you.
-  shortDescription: A debug test box is here.
+  description: It glares menacingly at you.
+  shortDescription: A test box is here.
   inventoryDescription: test box 5
   canTake: true
 - id: 6
@@ -73,8 +73,8 @@
     - box
     - test
     - 6
-  description: Test this. I dare you.
-  shortDescription: A debug test box is here. It glares menacingly at you.
+  description: It glares menacingly at you.
+  shortDescription: A test box is here.
   inventoryDescription: test box 6
   canTake: true
 - id: 7
@@ -85,7 +85,21 @@
     - box
     - test
     - 7
-  description: Test this. I dare you.
-  shortDescription: A debug test box is here.
+  description: It glares menacingly at you.
+  shortDescription: A test box is here.
   inventoryDescription: test box 7
+  canTake: true
+- id: 8
+  name: golden statue of El Chupacabra
+  keywords:
+    - golden statue of El Chupacabra
+    - golden statue
+    - el chupacabra
+    - chupacabra
+    - golden
+    - gold
+    - statue
+  description: It glares menacingly at you.
+  shortDescription: A golden statue of El Chupacabra lies forgotten here.
+  inventoryDescription: golden statue of El Chupacabra
   canTake: true
