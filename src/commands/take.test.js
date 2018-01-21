@@ -34,7 +34,7 @@ test('\'take\' results in warning message', () => {
 
 test('taking object in room moves it to inventory', () => {
   world.getCurrentRoom.mockImplementation(() => 1);
-  world.findItemsInRoom.mockImplementation(() => [{ id: 12, name: 'brass lantern' }]);
+  world.findItemsInRoom.mockImplementation(() => [{ id: 12, name: 'brass lantern', canTake: true }]);
 
   take.action({ world, terminal }, 'take lantern'.match(take.pattern));
 
@@ -90,3 +90,16 @@ test('taking an item that doesn\'t exist in the room or inventory results in a w
   expect(terminal.appendLine.mock.calls[0][0]).toEqual('You do not see a lantern here.');
 });
 
+test('taking an item that can\'t be taken results in a warning message', () => {
+  world.getCurrentRoom.mockImplementation(() => 1);
+  world.findItemsInRoom.mockImplementation(() => [{
+    id: 12,
+    name: 'iron maiden',
+    canTake: false,
+    noTakeDescription: 'The iron maiden is too heavy to lift.',
+  }]);
+
+  take.action({ world, terminal }, 'take maiden'.match(take.pattern));
+
+  expect(terminal.appendLine.mock.calls[0][0]).toEqual('The iron maiden is too heavy to lift.');
+});

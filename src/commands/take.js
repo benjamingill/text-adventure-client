@@ -19,10 +19,12 @@ const action = ({ world, terminal }, match) => {
         const lastItem = items.pop();
         terminal.appendLine(`Do you mean the ${_.join(_.map(items, i => i.name), ', ')} or the ${lastItem.name}?`);
       }
-    } else {
+    } else if (items[0].canTake) {
       world.removeItemFromRoom(currentRoom, items[0].id);
       world.addItemToInventory(items[0].id);
       terminal.appendLine(`You take the ${items[0].name}`);
+    } else {
+      terminal.appendLine(items[0].noTakeDescription);
     }
   };
 

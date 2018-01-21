@@ -9,7 +9,7 @@
   description: 'The tall trophy case is carved from a beautiful, dark mahogany.'
   shortDescription: 'A tall, wooden trophy case stands against the wall.'
   canTake: false
-  takeDescription: The trophy case is too heavy to carry around.
+  noTakeDescription: The trophy case is too heavy to carry around.
   canMove: false
   moveDescription: The trophy case is too heavy to move around.
   isContainer: true
@@ -24,9 +24,9 @@
   description: The large wheelbarrow is made out of wood.
   shortDescription: 'A large, wooden wheelbarrow is here.'
   canTake: false
-  takeDescription: |
-    The wheelbarrow is too large to pick up. It does however seem mobile
-    enough to push around.
+  noTakeDescription: >-
+    The wheelbarrow is too large to pick up. It does however seem mobile enough
+    to push from room to room.
   canMove: true
   moveDescription: You move the wheelbarrow.
   isContainer: true
@@ -35,8 +35,7 @@
   name: shovel
   keywords:
     - shovel
-  description: |
-    The shovel has a long wooden handle and a rusty iron blade.
+  description: The shovel has a long wooden handle and a rusty iron blade.
   shortDescription: A shovel lies here.
   inventoryDescription: a shovel
   canTake: true
