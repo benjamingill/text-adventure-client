@@ -31,6 +31,8 @@ export default function (container, input) {
     return true;
   }
 
+  // save unhandled command to localstorage
+  container.world.saveUnhandledCommand(input);
   container.terminal.appendLine('You cannot do that.');
   container.terminal.appendLine('');
   return false;
