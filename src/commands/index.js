@@ -1,6 +1,7 @@
 import down from './down';
 import drop from './drop';
 import east from './east';
+import inventory from './inventory';
 import look from './look';
 import north from './north';
 import south from './south';
@@ -12,6 +13,7 @@ export default [
   down,
   drop,
   east,
+  inventory,
   look,
   north,
   south,
