@@ -129,3 +129,9 @@ test('the world allows me to remove an item from my inventory', () => {
   world.removeItemFromInventory(1);
   expect(world.getItemsFromInventory().length).toEqual(0);
 });
+
+test('the world saves a command in the command store', () => {
+  const world = new World(mockWorld);
+  world.saveUnhandledCommand('hi there');
+  expect(localStorage.getItem('text-adventure:commandStore')).toEqual('["hi there"]');
+});

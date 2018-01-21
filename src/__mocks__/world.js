@@ -27,5 +27,9 @@ export default function World() {
 
   this.removeItemFromRoom = jest.fn();
 
+  this.save = jest.fn();
+
+  this.saveUnhandledCommand = jest.fn();
+
   this.setCurrentRoom = jest.fn();
 }

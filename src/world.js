@@ -44,13 +44,11 @@ const worldData = {
   map: mapData,
 };
 
+const getLocalStorage = key => JSON.parse(localStorage.getItem(key));
+const setLocalStorage = (key, object) => localStorage.setItem(key, JSON.stringify(object));
+
 export default function World(data = worldData) {
-  const state = (() => {
-    if (!localStorage.getItem('world')) {
-      localStorage.setItem('world', JSON.stringify(createWorld(data)));
-    }
-    return JSON.parse(localStorage.getItem('world'));
-  })();
+  const state = (() => getLocalStorage('text-adventure:worldStore') || createWorld(data))();
 
   this.addItemToInventory = (id) => {
     if (typeof _.find(state.inv, i => i === id) === 'undefined') {
@@ -104,8 +102,7 @@ export default function World(data = worldData) {
 
   this.getOptions = () => state.options;
 
-  this.getItemsFromInventory = () =>
-    _.map(state.inv, this.getItem);
+  this.getItemsFromInventory = () => _.map(state.inv, this.getItem);
 
   this.getRoom = id => data.rooms[id];
 
@@ -119,7 +116,13 @@ export default function World(data = worldData) {
     room.items.splice(index, 1);
   };
 
-  this.save = () => localStorage.setItem('world', JSON.stringify(state));
+  this.save = () => setLocalStorage('text-adventure:worldStore', state);
+
+  this.saveUnhandledCommand = (command) => {
+    const commandStore = getLocalStorage('text-adventure:commandStore') || [];
+    commandStore.push(command);
+    setLocalStorage('text-adventure:commandStore', commandStore);
+  };
 
   this.setCurrentRoom = (id) => { state.currentRoom = id; };
 }
