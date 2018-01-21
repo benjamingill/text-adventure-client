@@ -101,5 +101,5 @@
     - statue
   description: It glares menacingly at you.
   shortDescription: A golden statue of El Chupacabra lies forgotten here.
-  inventoryDescription: golden statue of El Chupacabra
+  inventoryDescription: the golden statue of El Chupacabra
   canTake: true

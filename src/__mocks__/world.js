@@ -9,6 +9,8 @@ export default function World() {
 
   this.getCurrentRoom = jest.fn();
 
+  this.getItemsFromInventory = jest.fn();
+
   this.getScore = jest.fn();
 
   this.getMoves = jest.fn();
