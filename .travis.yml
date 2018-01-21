@@ -12,6 +12,8 @@ deploy:
   region: "us-east-1"
   bucket: $AWS_S3_BUCKET_NAME
   local_dir: dist
+  skip_cleanup: true
+  acl: public_read
   'on':
     branch: master
 env:
