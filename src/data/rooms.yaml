@@ -1,23 +1,27 @@
 - id: 0
   name: Limbo
-  description: 'You are standing in Limbo, THERE IS NO WAY OUT!'
+  description: >-
+    You are standing in Limbo, THERE IS NO WAY OUT! Okay just kidding. Here, go
+    back to the cottage.
+  exits:
+    d: 9
 - id: 1
   name: Rolling hills
   description: >-
     You are standing amongst some large hills that end in an impassible cliff to
     the north. The hills continue to the east and south.
   exits:
-    s: '2'
-    e: '6'
+    s: 2
+    e: 6
 - id: 2
   name: Small Foothills
   description: >-
     You are standing amongst some small foothills that continue to the east. To
     the north the hills get larger. There is an overgrown field to the south.
   exits:
-    n: '1'
-    s: '3'
-    e: '7'
+    n: 1
+    s: 3
+    e: 7
 - id: 3
   name: Field
   description: >-
@@ -25,27 +29,27 @@
     continues to the south. To the north lie some small hills and to the east
     you can see a small cottage.
   exits:
-    n: '2'
-    s: '4'
-    e: '5'
+    n: 2
+    s: 4
+    e: 5
 - id: 4
   name: Field
   description: >-
     You are standing in the south-western corner of a large field. The field
     continues to the north and to the east.
   exits:
-    n: '3'
-    e: '11'
+    n: 3
+    e: 11
 - id: 5
-  name: Small Cottage
+  name: West side of Cottage
   description: >-
     You are standing in the grass on the west side of a small cottage. To the
     west you see some overgrown fields. You can move around the cottage to the
     north and south.
   exits:
-    n: '8'
-    s: '10'
-    w: '3'
+    n: 8
+    s: 10
+    w: 3
 - id: 6
   name: Rolling hills
   description: >-
@@ -53,33 +57,34 @@
     the north. The hills continue to the south. A trail leads to the east
     through some trees.
   exits:
-    s: '7'
-    w: '1'
+    s: 7
+    w: 1
 - id: 7
   name: Small Foothills
   description: >-
     You are standing amongst some small foothills that continue on to the west.
     To the north the hills get larger. There is a small cottage to the south.
   exits:
-    n: '6'
-    s: '8'
-    w: '2'
+    n: 6
+    s: 8
+    w: 2
 - id: 8
-  name: Small Cottage
+  name: North side of Cottage
   description: >-
     You are standing in the grass on the north side of a small cottage. To the
     north are some small hills. You can move around the cottage to the east and
     to the west.
   exits:
-    n: '7'
-    e: '13'
-    w: '5'
+    n: 7
+    e: 13
+    w: 5
 - id: 9
   name: Inside the cottage
   description: You are standing inside the cottage.
   exits:
-    s: '10'
-    u: '12'
+    s: 10
+    u: 12
+    d: 29
 - id: 10
   name: Cottage Entrance
   description: >-
@@ -87,10 +92,10 @@
     cottage continues to the east and west. To the south you see some overgrown
     fields. There is a door to the cottage here.
   exits:
-    n: '9'
-    s: '11'
-    e: '13'
-    w: '5'
+    n: 9
+    s: 11
+    e: 13
+    w: 5
 - id: 11
   name: Field
   description: >-
@@ -98,6 +103,110 @@
     continues to the west. A small cottage lies to the north and a dark forest
     lies to the east.
   exits:
-    n: '3'
-    e: '14'
-    w: '4'
+    n: 10
+    e: 14
+    w: 4
+- id: 12
+  name: Bedroom
+  exits:
+    d: 9
+- id: 13
+  name: East of small Cottage
+  exits:
+    n: 8
+    s: 10
+    e: 16
+- id: 14
+  name: Forest
+  exits:
+    s: 15
+    e: 17
+    w: 11
+- id: 15
+  name: Forest
+  exits:
+    n: 14
+    e: 22
+    w: 11
+- id: 16
+  name: Garden Path
+  exits:
+    e: 19
+    w: 13
+- id: 17
+  name: Forest Path
+  exits:
+    e: 22
+    w: 14
+- id: 18
+  name: Damp Cave
+  exits:
+    e: 20
+- id: 19
+  name: Small Bridge
+  exits:
+    e: 24
+    w: 16
+    d: 21
+- id: 20
+  name: Stream
+  exits:
+    s: 21
+    e: 23
+    w: 18
+- id: 21
+  name: Under the Bridge
+  exits:
+    n: 20
+    s: 22
+    u: 19
+- id: 22
+  name: Dimly Lit Clearing
+  exits:
+    n: 21
+    s: 15
+    e: 26
+    w: 17
+- id: 23
+  name: Small Cemetary
+  exits:
+    w: 20
+    e: 28
+- id: 24
+  name: Forest
+  exits:
+    s: 25
+    w: 19
+- id: 25
+  name: Forest
+  exits:
+    n: 24
+    s: 26
+- id: 26
+  name: Forest
+  exits:
+    n: 25
+    w: 22
+- id: 27
+  name: Crooked Tree
+  exits:
+    s: 28
+- id: 28
+  name: Cemetary Graves
+  exits:
+    n: 27
+    w: 23
+- id: 29
+  name: Cellar
+  exits:
+    n: 30
+    u: 9
+- id: 30
+  name: Tiny Dirt Tunnel
+  exits:
+    n: 31
+    s: 29
+- id: 31
+  name: Wine Cellar
+  exits:
+    s: 30
