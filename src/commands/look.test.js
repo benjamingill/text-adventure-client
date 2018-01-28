@@ -161,7 +161,7 @@ test('terminal displays an object in the room as neither opened nor closed if th
   expect(terminal.appendLine.mock.calls[3][0]).toEqual('');
   expect(terminal.appendLine.mock.calls[4][0]).toEqual('A god-damn wheelbarrow is here.');
   expect(terminal.appendLine.mock.calls[5][0]).toEqual('The stupid wheelbarrow contains:');
-  expect(terminal.appendLine.mock.calls[6][0]).toEqual(' nothing');
+  expect(terminal.appendLine.mock.calls[6][0]).toEqual('  nothing');
 });
 
 test('terminal displays an object in the inventory of an opened container', () => {
@@ -185,5 +185,5 @@ test('terminal displays an object in the inventory of an opened container', () =
   expect(terminal.appendLine.mock.calls[3][0]).toEqual('');
   expect(terminal.appendLine.mock.calls[4][0]).toEqual('A god-damn wheelbarrow is here.');
   expect(terminal.appendLine.mock.calls[5][0]).toEqual('The stupid wheelbarrow contains:');
-  expect(terminal.appendLine.mock.calls[6][0]).toEqual(' a shovel');
+  expect(terminal.appendLine.mock.calls[6][0]).toEqual('  a shovel');
 });
