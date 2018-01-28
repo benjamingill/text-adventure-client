@@ -94,13 +94,15 @@ export default function World(data = worldData) {
     return _.map(ids, this.getItem);
   };
 
+  this.getBriefMode = () => state.options.brief;
+
   this.getCurrentRoom = () => state.currentRoom;
+
+  this.getDebugMode = () => state.options.debug;
 
   this.getScore = () => state.score;
 
   this.getMoves = () => state.moves;
-
-  this.getOptions = () => state.options;
 
   this.getItemsFromInventory = () => _.map(state.inv, this.getItem);
 
@@ -124,5 +126,9 @@ export default function World(data = worldData) {
     setLocalStorage('text-adventure:commandStore', commandStore);
   };
 
+  this.setBriefMode = (mode) => { state.options.brief = mode; };
+
   this.setCurrentRoom = (id) => { state.currentRoom = id; };
+
+  this.setDebugMode = (mode) => { state.options.debug = mode; };
 }

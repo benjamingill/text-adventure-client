@@ -28,17 +28,24 @@ const action = ({ world, terminal }) => {
   };
 
   const room = world.getRoom(world.getCurrentRoom());
-  terminal.appendLine(room.name);
+  if (world.getDebugMode()) {
+    terminal.appendLine(`[${room.id}] ${room.name}`);
+  } else {
+    terminal.appendLine(room.name);
+  }
 
-  if (!world.getOptions().brief) {
+  if (!world.getBriefMode()) {
     terminal.appendLine(room.description);
   }
 
   if (_.size(room.exits) === 0) {
     terminal.appendLine('[none]');
+  } else if (world.getDebugMode()) {
+    const directions = _(room.exits).keys().map(key => `${key}:${room.exits[key]}`).value();
+    terminal.appendLine(`[${_.join(directions, ', ')}]`);
   } else {
     let directions = _.keys(room.exits);
-    if (!world.getOptions().brief) {
+    if (!world.getBriefMode()) {
       directions = _.map(directions, fromAbbreviations);
     }
     terminal.appendLine(`[${_.join(directions, ', ')}]`);

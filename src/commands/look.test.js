@@ -11,7 +11,8 @@ const world = new World();
 
 beforeEach(() => {
   world.getRoom.mockImplementation(() => ({ id: 1, name, description }));
-  world.getOptions.mockImplementation(() => ({ brief: false }));
+  world.getBriefMode.mockImplementation(() => false);
+  world.getDebugMode.mockImplementation(() => false);
 });
 
 afterEach(() => {
@@ -46,7 +47,7 @@ test('terminal displays current room when player enters \'look\'', () => {
 
 test('terminal displays current room correctly when player enters \'look\' and is in brief mode', () => {
   world.getRoom.mockImplementation(() => ({ name, description, exits: { n: 2, s: 3 } }));
-  world.getOptions.mockImplementation(() => ({ brief: true }));
+  world.getBriefMode.mockImplementation(() => true);
   const container = { world, terminal };
 
   parse(container, 'l');
@@ -54,6 +55,23 @@ test('terminal displays current room correctly when player enters \'look\' and i
   expect(terminal.appendLine.mock.calls[0][0]).toEqual('Dirty Test Room');
   expect(terminal.appendLine.mock.calls[1][0]).toEqual('[n, s]');
   expect(terminal.appendLine.mock.calls[2][0]).toEqual('');
+});
+
+test('terminal displays current room correctly when player enters \'look\' and is in debug mode', () => {
+  world.getRoom.mockImplementation(() => ({
+    id: 10,
+    name,
+    description,
+    exits: { n: 2, s: 3 },
+  }));
+  world.getDebugMode.mockImplementation(() => true);
+
+  parse({ world, terminal }, 'l');
+
+  expect(terminal.appendLine.mock.calls[0][0]).toEqual('[10] Dirty Test Room');
+  expect(terminal.appendLine.mock.calls[1][0]).toEqual('You are standing in a dirty test room. Sucks for you.');
+  expect(terminal.appendLine.mock.calls[2][0]).toEqual('[n:2, s:3]');
+  expect(terminal.appendLine.mock.calls[3][0]).toEqual('');
 });
 
 test('terminal displays no exits if no exits exist', () => {
