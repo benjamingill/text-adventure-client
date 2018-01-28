@@ -7,15 +7,17 @@ export default function World() {
 
   this.findItemsInRoom = jest.fn();
 
+  this.getBriefMode = jest.fn();
+
   this.getCurrentRoom = jest.fn();
+
+  this.getDebugMode = jest.fn();
 
   this.getItemsFromInventory = jest.fn();
 
   this.getScore = jest.fn();
 
   this.getMoves = jest.fn();
-
-  this.getOptions = jest.fn();
 
   this.getItem = jest.fn();
 
@@ -33,5 +35,9 @@ export default function World() {
 
   this.saveUnhandledCommand = jest.fn();
 
+  this.getBriefMode = jest.fn();
+
   this.setCurrentRoom = jest.fn();
+
+  this.setDebugMode = jest.fn();
 }

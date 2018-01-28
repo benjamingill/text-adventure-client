@@ -1,3 +1,5 @@
+import brief from './brief';
+import debug from './debug';
 import down from './down';
 import drop from './drop';
 import east from './east';
@@ -20,4 +22,6 @@ export default [
   up,
   take,
   west,
+  debug,
+  brief,
 ];
