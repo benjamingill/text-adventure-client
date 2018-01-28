@@ -3,7 +3,7 @@ import { fromAbbreviations } from '../directions';
 
 const action = ({ world, terminal }) => {
   const displayItemInInventory = (item) => {
-    terminal.appendLine(` ${item.inventoryDescription}`);
+    terminal.appendLine(`  ${item.inventoryDescription}`);
   };
 
   const displayItemInRoom = (item) => {
@@ -18,7 +18,7 @@ const action = ({ world, terminal }) => {
     const subItems = world.getItemsFromItem(item.id);
     if (item.isContainer && !item.isClosed && _.size(subItems) === 0) {
       terminal.appendLine(`The ${item.name} contains:`);
-      terminal.appendLine(' nothing');
+      terminal.appendLine('  nothing');
     }
 
     if (item.isContainer && !item.isClosed && _.size(subItems) > 0) {

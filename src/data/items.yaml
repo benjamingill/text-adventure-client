@@ -3,22 +3,19 @@
   keywords:
     - case
     - trophy case
-    - mahogany
     - tall
     - wooden
-  description: 'The tall trophy case is carved from a beautiful, dark mahogany.'
-  shortDescription: 'A tall, wooden trophy case stands against the wall.'
+  description: The tall trophy case is carved from a beautiful, dark mahogany.
+  shortDescription: A tall, wooden trophy case stands against the wall.
   canTake: false
   noTakeDescription: The trophy case is too heavy to carry around.
-  canMove: false
-  moveDescription: The trophy case is too heavy to move around.
   isContainer: true
-  canClose: true
 - id: 2
   name: wooden wheelbarrow
   keywords:
     - large wooden wheelbarrow
     - wooden wheelbarrow
+    - large
     - wooden
     - wheelbarrow
   description: The large wheelbarrow is made out of wood.
@@ -27,8 +24,8 @@
   noTakeDescription: >-
     The wheelbarrow is too large to pick up. It does however seem mobile enough
     to push from room to room.
-  canMove: true
-  moveDescription: You move the wheelbarrow.
+  canPush: true
+  pushDescription: You push the wheelbarrow.
   isContainer: true
   canClose: false
 - id: 3
@@ -41,18 +38,93 @@
   canTake: true
   isContainer: false
 - id: 4
-  name: test box 4
+  name: corpse of the woodcutter's wife
   keywords:
-    - test box 4
-    - test box
-    - box
-    - test
-    - 4
-  description: Test this. I dare you.
-  shortDescription: A test box is here.
-  inventoryDescription: test box 4
-  canTake: true
+    - wife
+    - corpse
+    - woman
+    - young
+    - lovely
+  description: The woman is as beautiful in death as she was in life.
+  shortDescription: The corpse of a young woman lies here.
+  inventoryDescription: the corpse of the woodcutter's wife
 - id: 5
+  name: small jewelry box
+  keywords:
+    - small jewelry box
+    - small box
+    - jewelry box
+    - box
+    - small
+    - jewelry
+  description: The small jewelry box is exquisitly carved from a dark wood. It has a small lock on the front.
+  shortDescription: A small, wooden jewelry box lies here.
+  inventoryDescription: a wooden jewelry box
+  canTake: true
+  isContainer: true
+  canClose: true
+  isClosed: true
+  isLocked: true
+- id: 6
+  name: delicate brass key
+  keywords:
+    - delicate brass key
+    - brass key
+    - delicate key
+    - key
+    - delicate
+    - brass
+  description: The small key looks like it fits a tiny lock.
+  shortDescription: A delicate brass key lies here.
+  inventoryDescription: a delicate brass key
+  canTake: true
+- id: 7
+  name: corpse of the woodcutter
+  keywords:
+    - woodcutter
+    - corpse
+    - man
+  description: The woodcutter was a handsome, muscular young man.
+  shortDescription: The corpse of a young man lies here.
+  inventoryDescription: the corpse of the woodcutter
+- id: 8
+  name: sharp axe
+  keywords:
+    - sharp axe
+    - axe
+    - sharp
+  description: The axe has a good weight and a fairly sharp edge.
+  shortDescription: An axe lies on the ground here.
+  inventoryDescription: a sharp axe
+- id: 9
+  name: leather pouch
+  keywords:
+    - leather pouch
+    - leather
+    - pouch
+  description: The pouch is made from soft leather and has a drawstring of leather cord.
+  shortDescription: A small pouch lies here.
+  inventoryDescription: a small pouch
+  isContainer: true
+  canClose: true
+  isClosed: false
+- id: 10
+  name: copper coins
+  keywords:
+    - copper coins
+    - copper
+    - coins
+  description: The copper coins are not worth very much.
+  shortDescription: Some copper coins make a little pile here.
+  inventoryDescription: some copper coins
+
+
+
+
+
+
+
+- id: 25
   name: test box 5
   keywords:
     - test box 5
@@ -64,7 +136,7 @@
   shortDescription: A test box is here.
   inventoryDescription: test box 5
   canTake: true
-- id: 6
+- id: 26
   name: test box 6
   keywords:
     - test box 6
@@ -76,7 +148,7 @@
   shortDescription: A test box is here.
   inventoryDescription: test box 6
   canTake: true
-- id: 7
+- id: 27
   name: test box 7
   keywords:
     - test box 7
@@ -87,18 +159,4 @@
   description: It glares menacingly at you.
   shortDescription: A test box is here.
   inventoryDescription: test box 7
-  canTake: true
-- id: 8
-  name: golden statue of El Chupacabra
-  keywords:
-    - golden statue of El Chupacabra
-    - golden statue
-    - el chupacabra
-    - chupacabra
-    - golden
-    - gold
-    - statue
-  description: It glares menacingly at you.
-  shortDescription: A golden statue of El Chupacabra lies forgotten here.
-  inventoryDescription: the golden statue of El Chupacabra
   canTake: true

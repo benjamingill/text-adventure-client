@@ -1,9 +1,27 @@
-- id: 4 # field
+- id: 4
   items:
-    - id: 2 # wheelbarrow
+    - id: 2
       items:
-        - id: 4 # test box 4
-    - id: 5 # test box 5
-    - id: 6 # test box 6
-    - id: 7 # test box 7
-    - id: 8 # golden statue
+        - id: 3
+- id: 9
+  items:
+    - id: 1
+    - id: 4
+- id: 11
+  items:
+    - id: 25
+    - id: 26
+    - id: 27
+- id: 12
+  items:
+    - id: 5
+- id: 21
+  items:
+    - id: 6
+- id: 22
+  items:
+    - id: 7
+    - id: 8
+    - id: 9
+      items:
+        - id: 10
