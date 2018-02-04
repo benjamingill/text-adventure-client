@@ -85,17 +85,17 @@ test('the world has a room with an item that can be removed', () => {
 test('the world has a room with an item that contains another item', () => {
   const world = new World(mockWorld);
   const wheelbarrow = world.getItemsFromRoom(0)[0];
-  expect(world.getItemsFromItem(wheelbarrow.id)).toMatchObject([{ name: 'tin bucket' }]);
+  expect(world.getItemsFromContainer(wheelbarrow.id)).toMatchObject([{ name: 'tin bucket' }]);
 });
 
 test('the world has a room with an item that has an item that can be queried by keyword', () => {
   const world = new World(mockWorld);
   const wheelbarrow = world.getItemsFromRoom(0)[0];
-  expect(world.findItemsInItem(wheelbarrow.id, 'tin')).toMatchObject([{ name: 'tin bucket' }]);
+  expect(world.findItemsInContainer(wheelbarrow.id, 'tin')).toMatchObject([{ name: 'tin bucket' }]);
 });
 
 test('the world is okay with querying an empty item for items', () => {
-  expect(new World(mockWorld).findItemsInItem(2, 'tin').length).toEqual(0);
+  expect(new World(mockWorld).findItemsInContainer(2, 'tin').length).toEqual(0);
 });
 
 test('the world allows me to remove an item from a room and place it in my inventory', () => {

@@ -50,9 +50,9 @@ const setLocalStorage = (key, object) => localStorage.setItem(key, JSON.stringif
 export default function World(data = worldData) {
   const state = (() => getLocalStorage('text-adventure:worldStore') || createWorld(data))();
 
-  this.addItemToInventory = (id) => {
-    if (typeof _.find(state.inv, i => i === id) === 'undefined') {
-      state.inv.push(id);
+  this.addItemToInventory = (itemId) => {
+    if (typeof _.find(state.inv, i => i === itemId) === 'undefined') {
+      state.inv.push(itemId);
     }
   };
 
@@ -72,25 +72,25 @@ export default function World(data = worldData) {
       .value();
 
 
-  this.findItemsInItem = (id, token) =>
-    _.chain(this.getItemsFromItem(id))
+  this.findItemsInContainer = (containerId, token) =>
+    _.chain(this.getItemsFromContainer(containerId))
       .filter(i => i && _.includes(i.keywords, token))
       .value();
 
-  this.findItemsInRoom = (id, token) =>
-    _.chain(this.getItemsFromRoom(id))
+  this.findItemsInRoom = (roomId, token) =>
+    _.chain(this.getItemsFromRoom(roomId))
       .filter(i => i && _.includes(i.keywords, token))
       .value();
 
-  this.getItem = id => data.items[id];
+  this.getItem = itemId => data.items[itemId];
 
-  this.getItemsFromItem = (id) => {
-    const ids = state.items[id] && state.items[id].items;
+  this.getItemsFromContainer = (containerId) => {
+    const ids = state.items[containerId] && state.items[containerId].items;
     return _.map(ids, this.getItem);
   };
 
-  this.getItemsFromRoom = (id) => {
-    const ids = state.rooms[id] && state.rooms[id].items;
+  this.getItemsFromRoom = (roomId) => {
+    const ids = state.rooms[roomId] && state.rooms[roomId].items;
     return _.map(ids, this.getItem);
   };
 
@@ -106,7 +106,7 @@ export default function World(data = worldData) {
 
   this.getItemsFromInventory = () => _.map(state.inv, this.getItem);
 
-  this.getRoom = id => data.rooms[id];
+  this.getRoom = roomId => data.rooms[roomId];
 
   this.removeItemFromInventory = (itemId) => {
     state.inv = _.filter(state.inv, i => i !== itemId);
@@ -128,7 +128,7 @@ export default function World(data = worldData) {
 
   this.setBriefMode = (mode) => { state.options.brief = mode; };
 
-  this.setCurrentRoom = (id) => { state.currentRoom = id; };
+  this.setCurrentRoom = (roomId) => { state.currentRoom = roomId; };
 
   this.setDebugMode = (mode) => { state.options.debug = mode; };
 }

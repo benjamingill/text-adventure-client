@@ -15,7 +15,7 @@ const action = ({ world, terminal }) => {
       terminal.appendLine(item.shortDescription);
     }
 
-    const subItems = world.getItemsFromItem(item.id);
+    const subItems = world.getItemsFromContainer(item.id);
     if (item.isContainer && !item.isClosed && _.size(subItems) === 0) {
       terminal.appendLine(`The ${item.name} contains:`);
       terminal.appendLine('  nothing');

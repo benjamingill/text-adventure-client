@@ -25,7 +25,8 @@
     "build": "webpack",
     "start": "webpack-dev-server",
     "lint": "eslint webpack.config.js ./src",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "watch": "jest --watch"
   },
   "dependencies": {
     "lodash": "^4.17.4",

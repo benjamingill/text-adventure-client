@@ -172,7 +172,7 @@ test('terminal displays an object in the inventory of an opened container', () =
     isContainer: true,
     canClose: false,
   }]));
-  world.getItemsFromItem.mockImplementation(() => ([{
+  world.getItemsFromContainer.mockImplementation(() => ([{
     inventoryDescription: 'a shovel',
   }]));
   const container = { world, terminal };
