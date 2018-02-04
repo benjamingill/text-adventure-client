@@ -5,6 +5,8 @@ export default function World() {
 
   this.findItemsInInventory = jest.fn();
 
+  this.findItemsInContainer = jest.fn();
+
   this.findItemsInRoom = jest.fn();
 
   this.getBriefMode = jest.fn();
@@ -12,6 +14,8 @@ export default function World() {
   this.getCurrentRoom = jest.fn();
 
   this.getDebugMode = jest.fn();
+
+  this.getItemsFromContainer = jest.fn();
 
   this.getItemsFromInventory = jest.fn();
 
@@ -21,7 +25,7 @@ export default function World() {
 
   this.getItem = jest.fn();
 
-  this.getItemsFromItem = jest.fn();
+  this.getItemsFromContainer = jest.fn();
 
   this.getItemsFromRoom = jest.fn();
 
