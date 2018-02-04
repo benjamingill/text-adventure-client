@@ -15,6 +15,8 @@ export default function World() {
 
   this.getDebugMode = jest.fn();
 
+  this.getExitRoomNumber = jest.fn();
+
   this.getItemsFromContainer = jest.fn();
 
   this.getItemsFromInventory = jest.fn();

@@ -64,14 +64,27 @@ test('pushing a keyword that relates to three items results in warning', () => {
   expect(terminal.appendLine.mock.calls[0][0]).toEqual('Do you want to push the brass goat, brass car or the brass dining set?');
 });
 
-test('pushing valid object results in warning', () => {
+test('pushing valid object in an invalid direction results in warning', () => {
+  world.getExitRoomNumber.mockImplementation(() => undefined);
+  world.findItemsInRoom.mockImplementation(() => [{
+    id: 12,
+    name: 'wooden wheelbarrow',
+    canPush: true,
+  }]);
+  pushObjectDirection.action({ world, terminal }, 'push wheelbarrow north'.match(pushObjectDirection.pattern));
+  expect(terminal.appendLine.mock.calls[0][0]).toEqual('You can not push the wooden wheelbarrow to the north.');
+});
+
+test('pushing valid object in a valid direction results in success', () => {
+  world.getExitRoomNumber.mockImplementation(() => 2);
   world.findItemsInRoom.mockImplementation(() => [{
     id: 12,
     name: 'wheelbarrow',
     canPush: true,
   }]);
+  world.getRoom.mockImplementation(() => ({ name: 'Small Field' }));
   pushObjectDirection.action({ world, terminal }, 'push wheelbarrow north'.match(pushObjectDirection.pattern));
   expect(terminal.appendLine.mock.calls[0][0]).toEqual('You push the wheelbarrow to the north.');
-  expect(terminal.appendLine.mock.calls[0][0]).toEqual('');
-  expect(terminal.appendLine.mock.calls[0][0]).toEqual('Small Field');
+  expect(terminal.appendLine.mock.calls[1][0]).toEqual('');
+  expect(terminal.appendLine.mock.calls[2][0]).toEqual('Small Field');
 });

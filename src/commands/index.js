@@ -28,6 +28,6 @@ export default [
   debug,
   brief,
   push,
-  pushObject,
   pushObjectDirection,
+  pushObject,
 ];

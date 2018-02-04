@@ -3,7 +3,7 @@ import World from './world';
 
 const mockWorld = {
   rooms: {
-    0: { id: 0, name: 'Dirty Test Room' },
+    0: { id: 0, name: 'Dirty Test Room', exits: { n: 100 } },
     1: { id: 1, name: 'Dirty Test Room 2' },
     2: { id: 1, name: 'Dirty Test Room 3' },
   },
@@ -17,9 +17,10 @@ const mockWorld = {
     { id: 1, items: [] },
   ],
   inv: [],
+  currentRoom: 0,
 };
 
-beforeEach(() => {
+afterEach(() => {
   localStorage.clear();
 });
 
@@ -134,4 +135,14 @@ test('the world saves a command in the command store', () => {
   const world = new World(mockWorld);
   world.saveUnhandledCommand('hi there');
   expect(localStorage.getItem('text-adventure:commandStore')).toEqual('["hi there"]');
+});
+
+test('the world tells me what room leads in a certain direction', () => {
+  const world = new World(mockWorld);
+  expect(world.getExitRoomNumber('n')).toEqual(100);
+});
+
+test('the world tells me if i can\'t move in a certain direction', () => {
+  const world = new World(mockWorld);
+  expect(world.getExitRoomNumber('s')).toEqual(undefined);
 });

@@ -1,22 +1,19 @@
 import _ from 'lodash';
-import { fromAbbreviations, toAbbreviations } from '../directions';
+import look from './look';
+import { getLongFormat, getShortFormat } from '../directions';
 
 const action = ({ world, terminal }, matches) => {
   const itemToken = matches[1];
   const directionToken = matches[2];
 
-  const items = world.findItemsInRoom(world.getCurrentRoom());
+  const currentRoom = world.getCurrentRoom;
+  const items = world.findItemsInRoom(currentRoom);
   if (_.isEmpty(items)) {
     terminal.appendLine(`You do not see a ${itemToken} here.`);
     return;
   }
 
-  let direction = fromAbbreviations(directionToken);
-
-  if (!direction) {
-    direction = toAbbreviations(directionToken);
-  }
-
+  const direction = getShortFormat(directionToken);
   if (!direction) {
     terminal.appendLine(`I do not understand the direction '${directionToken}'.`);
   }
@@ -35,8 +32,24 @@ const action = ({ world, terminal }, matches) => {
   const item = items[0];
   if (!item.canPush) {
     terminal.appendLine(`You can not push the ${item.name}.`);
+    return;
   }
-  terminal.appendLine(`What direction do you want to push the ${item.name}?`);
+
+  const nextRoomNumber = world.getExitRoomNumber(direction);
+  if (typeof nextRoomNumber === 'undefined') {
+    terminal.appendLine(`You can not push the ${item.name} to the ${getLongFormat(direction)}.`);
+    return;
+  }
+
+  world.removeItemFromRoom(currentRoom, item.id);
+  world.addItemToRoom(nextRoomNumber, items[0].id);
+
+  world.setCurrentRoom(nextRoomNumber);
+
+  terminal.appendLine(`You push the ${item.name} to the ${getLongFormat(direction)}.`);
+  terminal.appendLine('');
+
+  look.action({ world, terminal });
 };
 
 export default {

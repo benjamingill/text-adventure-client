@@ -3,12 +3,14 @@ import roomData from './data/rooms.yaml';
 import itemData from './data/items.yaml';
 import mobData from './data/mobs.yaml';
 import mapData from './data/map.yaml';
+import { fromAbbreviations, toAbbreviations } from './directions';
 
 const startingRoom = 4;
 
 const createWorld = (data) => {
+  const currentRoom = (typeof data.currentRoom !== 'undefined') ? data.currentRoom : startingRoom;
   const state = {
-    currentRoom: data.currentRoom || startingRoom,
+    currentRoom,
     inv: data.inv || [],
     items: {},
     mobs: {},
@@ -64,6 +66,15 @@ export default function World(data = worldData) {
     if (typeof _.find(items, i => i === itemId) === 'undefined') {
       items.push(itemId);
     }
+  };
+
+  this.getExitRoomNumber = (direction) => {
+    let directionKey = direction;
+    if (toAbbreviations(direction)) {
+      directionKey = toAbbreviations(direction);
+    }
+    const currentRoom = this.getRoom(this.getCurrentRoom());
+    return currentRoom.exits[directionKey];
   };
 
   this.findItemsInInventory = token =>
