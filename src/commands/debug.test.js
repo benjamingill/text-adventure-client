@@ -1,7 +1,10 @@
+import Terminal from '../terminal';
 import World from '../world';
 import debug from './debug';
 
-const terminal = { appendLine: jest.fn() };
+jest.mock('../terminal');
+
+const terminal = new Terminal();
 
 afterEach(() => {
   jest.clearAllMocks();

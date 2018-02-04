@@ -1,9 +1,11 @@
+import Terminal from '../terminal';
 import drop from './drop';
 import World from '../world';
 
 jest.mock('../world');
+jest.mock('../terminal');
 
-const terminal = { appendLine: jest.fn() };
+const terminal = new Terminal();
 
 let world;
 beforeEach(() => {

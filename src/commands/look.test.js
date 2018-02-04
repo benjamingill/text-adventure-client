@@ -1,12 +1,14 @@
 import parse from '../parser';
+import Terminal from '../terminal';
 import World from '../world';
 
+jest.mock('../terminal');
 jest.mock('../world');
 
 const name = 'Dirty Test Room';
 const description = 'You are standing in a dirty test room. Sucks for you.';
-const terminal = { appendLine: jest.fn() };
 
+const terminal = new Terminal();
 const world = new World();
 
 beforeEach(() => {
