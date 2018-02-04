@@ -10,6 +10,9 @@ import south from './south';
 import up from './up';
 import take from './take';
 import west from './west';
+import push from './push';
+import pushObject from './pushObject';
+import pushObjectDirection from './pushObjectDirection';
 
 export default [
   down,
@@ -24,4 +27,7 @@ export default [
   west,
   debug,
   brief,
+  push,
+  pushObject,
+  pushObjectDirection,
 ];
